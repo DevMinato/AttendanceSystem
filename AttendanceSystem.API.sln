@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttendanceSystem.Application", "src\AttendanceSystem.Application\AttendanceSystem.Application.csproj", "{CCBE2111-72FE-498B-9515-0863FC835DA0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttendanceSystem.Domain", "src\AttendaceSystem.Domain\AttendanceSystem.Domain.csproj", "{5D554AA8-4D44-4CDC-9920-DF8DD1EAF2C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttendanceSystem.Domain", "src\AttendanceSystem.Domain\AttendanceSystem.Domain.csproj", "{5D554AA8-4D44-4CDC-9920-DF8DD1EAF2C0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttendanceSystem.Infrastructure", "src\AttendanceSystem.Infrastructure\AttendanceSystem.Infrastructure.csproj", "{C04A672B-4588-4017-9BBD-E59A9E5EFE9E}"
 EndProject

@@ -6550,8 +6550,8 @@
     },
     "AttendanceSystem.Domain/1.0.0": {
       "type": "project",
-      "path": "../src/AttendaceSystem.Domain/AttendanceSystem.Domain.csproj",
-      "msbuildProject": "../src/AttendaceSystem.Domain/AttendanceSystem.Domain.csproj"
+      "path": "../src/AttendanceSystem.Domain/AttendanceSystem.Domain.csproj",
+      "msbuildProject": "../src/AttendanceSystem.Domain/AttendanceSystem.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {

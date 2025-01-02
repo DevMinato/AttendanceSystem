@@ -1073,8 +1073,8 @@
     },
     "AttendanceSystem.Domain/1.0.0": {
       "type": "project",
-      "path": "../AttendaceSystem.Domain/AttendanceSystem.Domain.csproj",
-      "msbuildProject": "../AttendaceSystem.Domain/AttendanceSystem.Domain.csproj"
+      "path": "../AttendanceSystem.Domain/AttendanceSystem.Domain.csproj",
+      "msbuildProject": "../AttendanceSystem.Domain/AttendanceSystem.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1122,8 +1122,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\ayodeji.bolanle\\OneDrive - NLPC PFA\\Documents\\ORCHESTRA\\code_Repository\\AttendanceSystem\\src\\AttendaceSystem.Domain\\AttendanceSystem.Domain.csproj": {
-              "projectPath": "C:\\Users\\ayodeji.bolanle\\OneDrive - NLPC PFA\\Documents\\ORCHESTRA\\code_Repository\\AttendanceSystem\\src\\AttendaceSystem.Domain\\AttendanceSystem.Domain.csproj"
+            "C:\\Users\\ayodeji.bolanle\\OneDrive - NLPC PFA\\Documents\\ORCHESTRA\\code_Repository\\AttendanceSystem\\src\\AttendanceSystem.Domain\\AttendanceSystem.Domain.csproj": {
+              "projectPath": "C:\\Users\\ayodeji.bolanle\\OneDrive - NLPC PFA\\Documents\\ORCHESTRA\\code_Repository\\AttendanceSystem\\src\\AttendanceSystem.Domain\\AttendanceSystem.Domain.csproj"
             }
           }
         }

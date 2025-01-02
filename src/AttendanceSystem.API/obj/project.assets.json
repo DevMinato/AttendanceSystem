@@ -3895,8 +3895,8 @@
     },
     "AttendanceSystem.Domain/1.0.0": {
       "type": "project",
-      "path": "../AttendaceSystem.Domain/AttendanceSystem.Domain.csproj",
-      "msbuildProject": "../AttendaceSystem.Domain/AttendanceSystem.Domain.csproj"
+      "path": "../AttendanceSystem.Domain/AttendanceSystem.Domain.csproj",
+      "msbuildProject": "../AttendanceSystem.Domain/AttendanceSystem.Domain.csproj"
     },
     "AttendanceSystem.Persistence/1.0.0": {
       "type": "project",

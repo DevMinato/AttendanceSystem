@@ -565,11 +565,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ayodeji.bolanle\\OneDrive - NLPC PFA\\Documents\\ORCHESTRA\\code_Repository\\AttendanceSystem\\src\\AttendaceSystem.Domain\\AttendanceSystem.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\ayodeji.bolanle\\OneDrive - NLPC PFA\\Documents\\ORCHESTRA\\code_Repository\\AttendanceSystem\\src\\AttendanceSystem.Domain\\AttendanceSystem.Domain.csproj",
       "projectName": "AttendanceSystem.Domain",
-      "projectPath": "C:\\Users\\ayodeji.bolanle\\OneDrive - NLPC PFA\\Documents\\ORCHESTRA\\code_Repository\\AttendanceSystem\\src\\AttendaceSystem.Domain\\AttendanceSystem.Domain.csproj",
+      "projectPath": "C:\\Users\\ayodeji.bolanle\\OneDrive - NLPC PFA\\Documents\\ORCHESTRA\\code_Repository\\AttendanceSystem\\src\\AttendanceSystem.Domain\\AttendanceSystem.Domain.csproj",
       "packagesPath": "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ayodeji.bolanle\\OneDrive - NLPC PFA\\Documents\\ORCHESTRA\\code_Repository\\AttendanceSystem\\src\\AttendaceSystem.Domain\\obj\\",
+      "outputPath": "C:\\Users\\ayodeji.bolanle\\OneDrive - NLPC PFA\\Documents\\ORCHESTRA\\code_Repository\\AttendanceSystem\\src\\AttendanceSystem.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
