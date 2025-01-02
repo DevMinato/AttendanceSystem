@@ -1,0 +1,24 @@
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendaceSystem.Domain\bin\Debug\net8.0\AttendanceSystem.Domain.deps.json
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendaceSystem.Domain\bin\Debug\net8.0\AttendanceSystem.Domain.dll
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendaceSystem.Domain\bin\Debug\net8.0\AttendanceSystem.Domain.pdb
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.csproj.AssemblyReference.cache
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.AssemblyInfoInputs.cache
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.AssemblyInfo.cs
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.csproj.CoreCompileInputs.cache
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.dll
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\refint\AttendanceSystem.Domain.dll
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.pdb
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\ref\AttendanceSystem.Domain.dll
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendaceSystem.Domain\bin\Debug\net8.0\AttendanceSystem.Domain.deps.json
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendaceSystem.Domain\bin\Debug\net8.0\AttendanceSystem.Domain.dll
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendaceSystem.Domain\bin\Debug\net8.0\AttendanceSystem.Domain.pdb
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.csproj.AssemblyReference.cache
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.AssemblyInfoInputs.cache
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.AssemblyInfo.cs
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.csproj.CoreCompileInputs.cache
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.dll
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\refint\AttendanceSystem.Domain.dll
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\AttendanceSystem.Domain.pdb
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendaceSystem.Domain\obj\Debug\net8.0\ref\AttendanceSystem.Domain.dll

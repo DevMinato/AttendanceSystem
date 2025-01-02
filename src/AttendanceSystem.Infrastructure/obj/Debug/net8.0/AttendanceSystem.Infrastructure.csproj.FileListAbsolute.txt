@@ -1,0 +1,11 @@
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Infrastructure\bin\Debug\net8.0\AttendanceSystem.Infrastructure.deps.json
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Infrastructure\bin\Debug\net8.0\AttendanceSystem.Infrastructure.dll
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Infrastructure\bin\Debug\net8.0\AttendanceSystem.Infrastructure.pdb
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Infrastructure\obj\Debug\net8.0\AttendanceSystem.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Infrastructure\obj\Debug\net8.0\AttendanceSystem.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Infrastructure\obj\Debug\net8.0\AttendanceSystem.Infrastructure.AssemblyInfo.cs
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Infrastructure\obj\Debug\net8.0\AttendanceSystem.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Infrastructure\obj\Debug\net8.0\AttendanceSystem.Infrastructure.dll
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Infrastructure\obj\Debug\net8.0\refint\AttendanceSystem.Infrastructure.dll
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Infrastructure\obj\Debug\net8.0\AttendanceSystem.Infrastructure.pdb
+C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Infrastructure\obj\Debug\net8.0\ref\AttendanceSystem.Infrastructure.dll
