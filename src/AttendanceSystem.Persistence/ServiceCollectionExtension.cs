@@ -28,7 +28,7 @@ namespace AttendanceSystem.Persistence
 
         public static void AddIdentityServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("AppConnectionString")));
 
             var jwtSettings = JwtConfiguration.GetJwtSettings();
             services.AddAuthentication(options =>
