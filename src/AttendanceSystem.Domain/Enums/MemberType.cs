@@ -6,7 +6,7 @@ namespace AttendanceSystem.Domain.Enums
     {
         [Display(Name = "Pastor")]
         Pastor,
-        [Display(Name = "Workers in Training")]
+        [Display(Name = "WorkersInTraining")]
         WorkersInTraining,
         [Display(Name = "Disciple")]
         Disciple

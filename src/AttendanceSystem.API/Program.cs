@@ -1,5 +1,6 @@
 using AttendanceSystem.Application;
 using AttendanceSystem.Persistence;
+using Microsoft.OpenApi.Models;
 
 namespace AttendanceSystem.API
 {
@@ -19,7 +20,11 @@ namespace AttendanceSystem.API
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Attendance and Reporting Service", Version = "v1" });
+                c.SchemaFilter<EnumSchemaFilter>();
+            });
 
             var app = builder.Build();
 

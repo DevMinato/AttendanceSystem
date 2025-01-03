@@ -50,7 +50,7 @@ namespace AttendanceSystem.API.Controllers
 
         [HttpGet("id")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<GetMemberQueryResponse>> GetMembers(Guid id)
+        public async Task<ActionResult<GetMemberQueryResponse>> GetMember(Guid id)
         {
             return Ok(await _mediator.Send(new GetMemberQuery { Id = id }));
         }

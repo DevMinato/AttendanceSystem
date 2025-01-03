@@ -60,15 +60,16 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.CreateUser
 
 
             RuleFor(x => x.Password).Cascade(CascadeMode.Stop)
-                .IsInEnum()
-                .WithMessage("Invalid member type selected");
+                .NotEmpty()
+                .NotNull()
+                .WithMessage("Password is required");
 
             RuleFor(x => x.FellowshipId).Cascade(CascadeMode.Stop)
                 .NotEmpty()
                 .NotNull()
                 .WithMessage("Fellowship identifier is required")
                 .Must(x => BeValidFellowship(x.Value).Result)
-                .WithMessage("Activity identifier is not valid.");
+                .WithMessage("Fellowship identifier is not valid.");
 
             RuleFor(x => x)
                 .MustAsync(IsEmailAddressUnique)

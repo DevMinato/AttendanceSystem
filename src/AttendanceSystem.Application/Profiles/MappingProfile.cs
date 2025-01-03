@@ -1,7 +1,15 @@
-﻿using AttendanceSystem.Application.Features.Members.Commands.AddMember;
+﻿using AttendanceSystem.Application.Features.Fellowships.Commands.AddFellowship;
+using AttendanceSystem.Application.Features.Fellowships.Commands.EditFellowship;
+using AttendanceSystem.Application.Features.Fellowships.Queries.GetAllFellowships;
+using AttendanceSystem.Application.Features.Fellowships.Queries.GetFellowship;
+using AttendanceSystem.Application.Features.Members.Commands.AddMember;
 using AttendanceSystem.Application.Features.Members.Commands.EditMember;
 using AttendanceSystem.Application.Features.Members.Queries.GetAllMembers;
 using AttendanceSystem.Application.Features.Members.Queries.GetMember;
+using AttendanceSystem.Application.Features.Pastors.Commands.AddPastor;
+using AttendanceSystem.Application.Features.Pastors.Commands.EditPastor;
+using AttendanceSystem.Application.Features.Pastors.Queries.GetAllPastors;
+using AttendanceSystem.Application.Features.Pastors.Queries.GetPastor;
 using AttendanceSystem.Application.Features.Reports.Attendance.Commands.Create;
 using AttendanceSystem.Application.Features.Reports.Attendance.Commands.Edit;
 using AttendanceSystem.Application.Features.Reports.Attendance.Queries.GetAll;
@@ -274,6 +282,82 @@ namespace AttendanceSystem.Application.Profiles
             CreateMap<PagedResult<OutreachDetail>, PagedResult<OutreachDetailResultVM>>();
 
             /* End Outreach Report Mapping */
+
+            /* Start Pastor Mapping */
+
+            CreateMap<AddPastorCommand, Pastor>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.ModifiedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.Ignore())
+                .ForMember(dest => dest.LastLoginDate, opt => opt.Ignore())
+                .ForMember(dest => dest.IsActive, opt => opt.Ignore())
+                .ForMember(dest => dest.Fellowship, opt => opt.Ignore())
+                .ForMember(dest => dest.LoginAttempt, opt => opt.Ignore())
+                .ForMember(dest => dest.LoginAccessDate, opt => opt.Ignore())
+                .ForMember(dest => dest.IsPasswordLocked, opt => opt.Ignore())
+                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
+
+            CreateMap<EditPastorCommand, Pastor>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(b => b.PastorId))
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.ModifiedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.Ignore())
+                .ForMember(dest => dest.LastLoginDate, opt => opt.Ignore())
+                .ForMember(dest => dest.IsActive, opt => opt.Ignore())
+                .ForMember(dest => dest.Fellowship, opt => opt.Ignore())
+                .ForMember(dest => dest.LoginAttempt, opt => opt.Ignore())
+                .ForMember(dest => dest.LoginAccessDate, opt => opt.Ignore())
+                .ForMember(dest => dest.IsPasswordLocked, opt => opt.Ignore())
+                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
+
+            CreateMap<Pastor, PastorDetailResultVM>()
+                .ForMember(dest => dest.FellowshipName, opt => opt.MapFrom(i => i.Fellowship.Name));
+
+            CreateMap<Pastor, PastorsListResultVM>()
+                .ForMember(dest => dest.FellowshipName, opt => opt.MapFrom(i => i.Fellowship.Name));
+
+            CreateMap<PagedResult<Pastor>, PagedResult<PastorsListResultVM>>();
+
+            /* End Pastor Mapping */
+
+            /* Start Fellowship Mapping */
+
+            CreateMap<AddFellowshipCommand, Fellowship>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.ModifiedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.Ignore())
+                .ForMember(dest => dest.IsActive, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
+
+            CreateMap<EditFellowshipCommand, Fellowship>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(b => b.PastorId))
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.ModifiedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.Ignore())
+                .ForMember(dest => dest.IsActive, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
+
+            CreateMap<Fellowship, FellowshipDetailResultVM>()
+                .ForMember(dest => dest.PastorFullName, opt => opt.Ignore());
+
+            CreateMap<Fellowship, FellowshipsListResultVM>()
+                .ForMember(dest => dest.PastorFullName, opt => opt.Ignore());
+
+            CreateMap<PagedResult<Fellowship>, PagedResult<FellowshipsListResultVM>>();
+
+            /* End Fellowship Mapping */
         }
     }
 }

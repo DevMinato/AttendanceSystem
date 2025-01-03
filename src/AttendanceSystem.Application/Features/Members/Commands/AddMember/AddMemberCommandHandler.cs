@@ -13,14 +13,16 @@ namespace AttendanceSystem.Application.Features.Members.Commands.AddMember
     {
         private readonly ILogger<AddMemberCommandHandler> _logger;
         private readonly IAsyncRepository<Member> _memberRepository;
+        private readonly IAsyncRepository<Fellowship> _fellowshipRepository;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        public AddMemberCommandHandler(ILogger<AddMemberCommandHandler> logger, IAsyncRepository<Member> memberRepository, IMapper mapper, IUserService userService)
+        public AddMemberCommandHandler(ILogger<AddMemberCommandHandler> logger, IAsyncRepository<Member> memberRepository, IMapper mapper, IUserService userService, IAsyncRepository<Fellowship> fellowshipRepository)
         {
             _logger = logger;
             _memberRepository = memberRepository;
             _mapper = mapper;
             _userService = userService;
+            _fellowshipRepository = fellowshipRepository;
         }
 
         public async Task<AddMemberCommandResponse> Handle(AddMemberCommand request, CancellationToken cancellationToken)
@@ -28,7 +30,7 @@ namespace AttendanceSystem.Application.Features.Members.Commands.AddMember
             var response = new AddMemberCommandResponse();
             try
             {
-                var validator = new AddMemberCommandValidator();
+                var validator = new AddMemberCommandValidator(_memberRepository, _fellowshipRepository);
                 var validationResult = await validator.ValidateAsync(request);
                 if (validationResult.Errors.Count > 0)
                     throw new ValidationException(validationResult);
