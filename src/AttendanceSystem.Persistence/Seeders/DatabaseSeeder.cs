@@ -17,6 +17,24 @@ public static class DatabaseSeeder
         // Apply migrations automatically
         context.Database.Migrate();
 
+        // Seed Fellowships
+        if (!context.Fellowships.Any())
+        {
+            context.Fellowships.AddRange(
+                new Fellowship
+                {
+                    Id = Guid.Parse("f62a5d9d-1672-4b68-a69d-8d5f70e5a5ff"),
+                    Name = "Somolu Central, Araromi",
+                    PastorId = Guid.Parse("d15356cf-a3a4-4fa6-bc78-3e37f76f53f0"),
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                }
+            );
+
+            context.SaveChanges();
+        }
+
         // Seed Activities
         if (!context.Activities.Any())
         {
@@ -68,11 +86,13 @@ public static class DatabaseSeeder
             new Member
             {
                 Id = Guid.Parse("c493fb1d-54d8-44d3-8806-4a2ab6d9f02b"),
+                MemberType = MemberType.WorkersInTraining,
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "john.doe@example.com",
                 PhoneNumber = "1234567890",
                 PasswordHash = hashedPassword1,
+                FellowshipId= Guid.Parse("f62a5d9d-1672-4b68-a69d-8d5f70e5a5ff"),
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
@@ -93,28 +113,13 @@ public static class DatabaseSeeder
                 Email = "seunainascott2@gmail.com",
                 PhoneNumber = "08107774062",
                 PasswordHash = hashedPassword2,
+                FellowshipId= Guid.Parse("f62a5d9d-1672-4b68-a69d-8d5f70e5a5ff"),
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             }
             );
-        }
-
-        // Seed Fellowships
-        if (!context.Fellowships.Any())
-        {
-            context.Fellowships.AddRange(
-                new Fellowship
-                {
-                    Id = Guid.Parse("f62a5d9d-1672-4b68-a69d-8d5f70e5a5ff"),
-                    Name = "Somolu Central, Araromi",
-                    PastorId = Guid.Parse("d15356cf-a3a4-4fa6-bc78-3e37f76f53f0"),
-                    IsActive = true,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
-                }
-            );
-        }
+        }        
 
         context.SaveChanges();
     }

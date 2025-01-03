@@ -50,7 +50,7 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
 
                 if (request.MemberType == MemberType.WorkersInTraining)
                 {
-                    var member = await _memberRepository.GetSingleAsync(m => m.Email == request.Email);
+                    var member = await _memberRepository.GetSingleAsync(m => m.Email == request.Email, false, x => x.Fellowship);
                     if (member == null ||
                         _memberPasswordHasher.VerifyHashedPassword(member, member.PasswordHash, request.Password) != PasswordVerificationResult.Success)
                     {
@@ -80,7 +80,7 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
                         FullName = string.Join(' ', member.FirstName, member.LastName),
                         PhoneNumber = member.PhoneNumber,
                         EmailAddress = member.Email,
-                        UserType = member.MemberType,
+                        UserType = member.MemberType.ToString(),
                         GroupName = member.Fellowship.Name,
                         LastLoginDate = member.LastLoginDate,
                     };
@@ -93,7 +93,7 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
                 }
                 else if (request.MemberType == MemberType.Pastor)
                 {
-                    var pastor = await _pastorRepository.GetSingleAsync(m => m.Email == request.Email);
+                    var pastor = await _pastorRepository.GetSingleAsync(m => m.Email == request.Email, false, x => x.Fellowship);
                     if (pastor == null ||
                         _pastorPasswordHasher.VerifyHashedPassword(pastor, pastor.PasswordHash, request.Password) != PasswordVerificationResult.Success)
                     {
@@ -123,7 +123,7 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
                         FullName = string.Join(' ', pastor.FirstName, pastor.LastName),
                         PhoneNumber = pastor.PhoneNumber,
                         EmailAddress = pastor.Email,
-                        UserType = MemberType.Pastor,
+                        UserType = MemberType.Pastor.ToString(),
                         GroupName = pastor.Fellowship.Name,
                         LastLoginDate = pastor.LastLoginDate,
                     };
@@ -165,12 +165,19 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
             // Generate JWT Token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtTokenConfig.Key);
+
+
+            Guid userId = obj.UserId;
+            Guid groupId = obj.GroupId;
+            string usertype = obj.UserType;
+
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity
                 (
                     new[]{
-                        new Claim(ClaimTypes.NameIdentifier, obj.userId.ToString()),
+                        new Claim(ClaimTypes.NameIdentifier, obj.UserId.ToString()),
                         new Claim(ClaimTypes.GroupSid, obj.GroupId.ToString()),
                         new Claim(ClaimTypes.UserData, JsonConvert.SerializeObject( new UserResponse(){
                             UserId=obj.UserId,
@@ -178,7 +185,7 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
                             EmailAddress=obj.EmailAddress,
                             MobileNumber=obj.PhoneNumber,
                             GroupId = obj.GroupId,
-                            UserType = obj.UserType.GetDescription(),
+                            UserType = obj.UserType,
                             Permissions = null,
                             GroupName=obj.GroupName,
                             LastLoginDate =obj.LastLoginDate,

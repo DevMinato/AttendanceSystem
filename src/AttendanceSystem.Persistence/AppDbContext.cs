@@ -6,7 +6,7 @@ namespace AttendanceSystem.Persistence
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration config)
+        public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration config) : base(options)
         {
         }
 
@@ -53,17 +53,29 @@ namespace AttendanceSystem.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            /*modelBuilder.Entity<ApplicationUser>().ToTable("Users").HasDiscriminator<string>("Discriminator").HasValue<ApplicationUser>("User");
-            modelBuilder.Entity<IdentityUser>().ToTable("Users").HasDiscriminator<string>("Discriminator").HasValue<ApplicationUser>("User");
-            modelBuilder.Entity<IdentityRole>().ToTable("Roles").HasDiscriminator<string>("Discriminator").HasValue<IdentityRole>("RoleCore");
-            modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRoles").HasDiscriminator<string>("Discriminator").HasValue<IdentityUserRole<string>>("UserRole");
-            modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims").HasDiscriminator<string>("Discriminator").HasValue<IdentityUserClaim<string>>("UserClaim");
-            modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims").HasDiscriminator<string>("Discriminator").HasValue<IdentityRoleClaim<string>>("RoleClaim");
 
-            modelBuilder.Entity<ApplicationUser>().Property(f => f.UserType).HasConversion<string>().HasMaxLength(50);*/
+            // One Fellowship can have many Pastors
+            modelBuilder.Entity<Pastor>()
+                .HasOne(p => p.Fellowship)
+                .WithMany()
+                .HasForeignKey(p => p.FellowshipId)
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
+
+            // One Fellowship can have many Pastors
+            modelBuilder.Entity<Member>()
+                .HasOne(p => p.Fellowship)
+                .WithMany()
+                .HasForeignKey(p => p.FellowshipId)
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
+
+            modelBuilder.Entity<Activity>().Property(f => f.Type).HasConversion<string>().HasMaxLength(20);
+            modelBuilder.Entity<Pastor>().Property(f => f.Gender).HasConversion<string>().HasMaxLength(10);
+            modelBuilder.Entity<Member>().Property(f => f.Gender).HasConversion<string>().HasMaxLength(10);
+            modelBuilder.Entity<Member>().Property(f => f.MemberType).HasConversion<string>().HasMaxLength(20);
+            modelBuilder.Entity<FollowUpReport>().Property(f => f.FollowUpType).HasConversion<string>().HasMaxLength(20);
         }
 
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<Pastor> Pastors { get; set; }
         public DbSet<Activity> Activities { get; set; }

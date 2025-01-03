@@ -39,13 +39,13 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
                 if (command.MemberType == Domain.Enums.MemberType.WorkersInTraining)
                 {
                     var user = await _memberRepository.GetSingleAsync(x => x.Email == command.Email);
-                    if (user == null)
+                    if (user != null)
                         return true;
                 }
                 else if (command.MemberType == Domain.Enums.MemberType.Pastor)
                 {
                     var user = await _pastorRepository.GetSingleAsync(x => x.Email == command.Email);
-                    if (user == null)
+                    if (user != null)
                         return true;
                 }
 
