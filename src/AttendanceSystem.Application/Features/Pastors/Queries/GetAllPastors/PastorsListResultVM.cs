@@ -1,4 +1,6 @@
-﻿namespace AttendanceSystem.Application.Features.Pastors.Queries.GetAllPastors
+﻿using AttendanceSystem.Domain.Enums;
+
+namespace AttendanceSystem.Application.Features.Pastors.Queries.GetAllPastors
 {
     public class PastorsListResultVM
     {
@@ -15,5 +17,6 @@
         public DateTime? LoginAccessDate { get; set; }
         public bool? IsPasswordLocked { get; set; }
         public int? LoginAttempt { get; set; }
+        public string Status { get; set; }
     }
 }

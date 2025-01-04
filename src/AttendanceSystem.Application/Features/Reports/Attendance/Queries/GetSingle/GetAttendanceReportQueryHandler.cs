@@ -27,7 +27,7 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Queries.GetSi
                 var report = await _attendanceReportRepository.GetSingleAsync(x => x.Id == request.ReportId, false, x => x.Activity, x => x.Member);
                 if (report == null)
                 {
-                    throw new NotFoundException(nameof(AttendanceReport), Constants.ErrorCode_ReportNotFound + $"Report with request id {request.ReportId} not found");
+                    throw new NotFoundException(nameof(AttendanceReport), Constants.ErrorCode_ReportNotFound + $" Report with request id {request.ReportId} not found");
                 }
 
                 var result = _mapper.Map<AttendanceReportDetailResultVM>(report);

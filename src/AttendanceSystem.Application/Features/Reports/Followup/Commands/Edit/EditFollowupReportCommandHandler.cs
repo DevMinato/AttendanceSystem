@@ -43,7 +43,7 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Commands.Edit
                     report => report.FollowUpDetails
                 };
                 var report = await _followupReportRepository.GetSingleAsync(x => x.Id == request.ReportId, false, includeExpressions);
-                if (report == null) throw new NotFoundException(nameof(FollowUpReport), $"Report with Id {request.ReportId} not found, ({Constants.ErrorCode_ReportNotFound})");
+                if (report == null) throw new NotFoundException(nameof(FollowUpReport), $" Report with Id {request.ReportId} not found, ({Constants.ErrorCode_ReportNotFound})");
 
                 _unitOfWork.BeginTransaction();
 

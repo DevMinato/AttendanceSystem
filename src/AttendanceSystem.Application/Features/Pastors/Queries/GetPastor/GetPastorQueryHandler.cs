@@ -27,7 +27,7 @@ namespace AttendanceSystem.Application.Features.Pastors.Queries.GetPastor
                 var pastor = await _pastorRepository.GetSingleAsync(x => x.Id == request.Id, false);
                 if (pastor == null)
                 {
-                    throw new CustomException(Constants.ErrorCode_RecordNotFound + $"Pastor with request id {request.Id} not found.");
+                    throw new CustomException(Constants.ErrorCode_RecordNotFound + $" Pastor with request id {request.Id} not found.");
                 }
 
                 var result = _mapper.Map<PastorDetailResultVM>(pastor);

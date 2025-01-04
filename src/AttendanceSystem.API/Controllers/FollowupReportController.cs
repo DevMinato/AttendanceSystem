@@ -5,12 +5,14 @@ using AttendanceSystem.Application.Features.Reports.Followup.Queries.GetAll;
 using AttendanceSystem.Application.Features.Reports.Followup.Queries.GetSingle;
 using AttendanceSystem.Application.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AttendanceSystem.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FollowupReportController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -47,7 +49,7 @@ namespace AttendanceSystem.API.Controllers
             return Ok(await _mediator.Send(query));
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<GetFollowupReportQueryResponse>> GetReport(Guid id)
         {

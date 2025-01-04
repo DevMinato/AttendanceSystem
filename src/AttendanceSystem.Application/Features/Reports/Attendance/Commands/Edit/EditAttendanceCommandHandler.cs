@@ -36,7 +36,7 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Edit
                     throw new ValidationException(validationResult);
 
                 var attendance = await _attendanceReportRepository.GetSingleAsync(x => x.Id == request.ReportId);
-                if (attendance == null) throw new NotFoundException(nameof(AttendanceReport), Constants.ErrorCode_ReportNotFound + $"Report with Id {request.ReportId} not found.");
+                if (attendance == null) throw new NotFoundException(nameof(AttendanceReport), Constants.ErrorCode_ReportNotFound + $" Report with Id {request.ReportId} not found.");
 
                 var updateObj = _mapper.Map<AttendanceReport>(request);
                 await _attendanceReportRepository.UpdateAsync(updateObj);

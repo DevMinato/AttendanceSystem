@@ -29,7 +29,7 @@ namespace AttendanceSystem.Application.Features.Fellowships.Queries.GetFellowshi
                 var fellowship = await _fellowshipRepository.GetSingleAsync(x => x.Id == request.Id, false);
                 if (fellowship == null)
                 {
-                    throw new CustomException(Constants.ErrorCode_RecordNotFound + $"Fellowship with request id {request.Id} not found.");
+                    throw new CustomException(Constants.ErrorCode_RecordNotFound + $" Fellowship with request id {request.Id} not found.");
                 }
 
                 var result = _mapper.Map<FellowshipDetailResultVM>(fellowship);

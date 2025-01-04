@@ -3,15 +3,16 @@ using AttendanceSystem.Application.Features.Members.Commands.DeleteMember;
 using AttendanceSystem.Application.Features.Members.Commands.EditMember;
 using AttendanceSystem.Application.Features.Members.Queries.GetAllMembers;
 using AttendanceSystem.Application.Features.Members.Queries.GetMember;
-using AttendanceSystem.Application.Features.Reports.Followup.Commands.Edit;
 using AttendanceSystem.Application.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AttendanceSystem.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MemberController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -48,7 +49,7 @@ namespace AttendanceSystem.API.Controllers
             return Ok(await _mediator.Send(query));
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<GetMemberQueryResponse>> GetMember(Guid id)
         {

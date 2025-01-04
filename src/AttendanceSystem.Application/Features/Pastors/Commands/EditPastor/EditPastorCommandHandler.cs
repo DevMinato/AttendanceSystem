@@ -33,7 +33,7 @@ namespace AttendanceSystem.Application.Features.Pastors.Commands.EditPastor
                     throw new ValidationException(validationResult);
 
                 var fellowship = await _pastorRepository.GetSingleAsync(x => x.Id == request.PastorId);
-                if (fellowship == null) throw new NotFoundException(nameof(fellowship), Constants.ErrorCode_ReportNotFound + $"Pastor with Id {request.PastorId} not found.");
+                if (fellowship == null) throw new NotFoundException(nameof(fellowship), Constants.ErrorCode_ReportNotFound + $" Pastor with Id {request.PastorId} not found.");
 
                 var updateObj = _mapper.Map<Pastor>(request);
                 await _pastorRepository.UpdateAsync(updateObj);

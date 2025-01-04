@@ -43,7 +43,7 @@ namespace AttendanceSystem.Application.Features.Reports.Outreach.Commands.Edit
                     report => report.OutreachDetails
                 };
                 var report = await _outreachReportRepository.GetSingleAsync(x => x.Id == request.ReportId, false, includeExpressions);
-                if (report == null) throw new NotFoundException(nameof(OutreachReport), $"Report with Id {request.ReportId} not found, ({Constants.ErrorCode_ReportNotFound})");
+                if (report == null) throw new NotFoundException(nameof(OutreachReport), $" Report with Id {request.ReportId} not found, ({Constants.ErrorCode_ReportNotFound})");
 
                 _unitOfWork.BeginTransaction();
 

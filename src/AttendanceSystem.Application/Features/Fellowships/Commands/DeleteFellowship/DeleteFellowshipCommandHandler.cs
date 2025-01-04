@@ -31,7 +31,7 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.DeleteFello
                     throw new ValidationException(validationResult);
 
                 var member = await _fellowshipRepository.GetSingleAsync(x => x.Id == request.FellowshipId);
-                if(member == null) throw new NotFoundException(nameof(member), Constants.ErrorCode_ReportNotFound + $"Member with Id {request.FellowshipId} not found.");
+                if(member == null) throw new NotFoundException(nameof(member), Constants.ErrorCode_ReportNotFound + $" Fellowship with Id {request.FellowshipId} not found.");
 
                 member.IsDeleted = true;
                 await _fellowshipRepository.UpdateAsync(member);

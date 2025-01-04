@@ -31,7 +31,7 @@ namespace AttendanceSystem.Application.Features.Pastors.Commands.DeletePastor
                     throw new ValidationException(validationResult);
 
                 var pastor = await _pastorRepository.GetSingleAsync(x => x.Id == request.PastorId);
-                if(pastor == null) throw new NotFoundException(nameof(pastor), Constants.ErrorCode_ReportNotFound + $"Pastor with Id {request.PastorId} not found.");
+                if(pastor == null) throw new NotFoundException(nameof(pastor), Constants.ErrorCode_ReportNotFound + $" Pastor with Id {request.PastorId} not found.");
 
                 pastor.IsDeleted = true;
                 await _pastorRepository.UpdateAsync(pastor);

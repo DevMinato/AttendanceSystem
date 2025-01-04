@@ -42,7 +42,7 @@ namespace AttendanceSystem.Application.Features.Pastors.Queries.GetAllPastors
                 }
 
                 var pagedResult = await _pastorRepository.GetPagedFilteredAsync(filter, request.Page, request.PageSize, request.SortColumn,
-                    request.SortOrder, false);
+                    request.SortOrder, false, x => x.Fellowship);
 
                 var result = _mapper.Map<PagedResult<PastorsListResultVM>>(pagedResult);
 

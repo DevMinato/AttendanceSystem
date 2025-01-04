@@ -38,7 +38,7 @@ namespace AttendanceSystem.Application.Features.Reports.Outreach.Queries.GetSing
                 var report = await _outreachReportRepository.GetSingleAsync(x => x.Id == request.ReportId, false, includeExpressions);
                 if (report == null)
                 {
-                    throw new NotFoundException(nameof(FollowUpReport), Constants.ErrorCode_ReportNotFound + $"Report with request id {request.ReportId} not found");
+                    throw new NotFoundException(nameof(FollowUpReport), Constants.ErrorCode_ReportNotFound + $" Report with request id {request.ReportId} not found");
                 }
 
                 response.Result = _mapper.Map<OutreachReportDetailResultVM>(report);

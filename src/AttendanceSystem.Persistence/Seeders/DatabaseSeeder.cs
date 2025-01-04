@@ -95,7 +95,8 @@ public static class DatabaseSeeder
                 FellowshipId= Guid.Parse("f62a5d9d-1672-4b68-a69d-8d5f70e5a5ff"),
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
+                UpdatedAt = DateTime.UtcNow,
+                Status = ApprovalStatus.Approved,
             }
             );
         }
@@ -116,7 +117,8 @@ public static class DatabaseSeeder
                 FellowshipId= Guid.Parse("f62a5d9d-1672-4b68-a69d-8d5f70e5a5ff"),
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
+                UpdatedAt = DateTime.UtcNow,
+                Status = ApprovalStatus.Approved
             }
             );
         }        

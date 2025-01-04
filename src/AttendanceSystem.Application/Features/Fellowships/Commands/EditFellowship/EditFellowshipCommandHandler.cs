@@ -31,7 +31,7 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.EditFellows
                     throw new ValidationException(validationResult);
 
                 var fellowship = await _fellowshipRepository.GetSingleAsync(x => x.Id == request.FellowshipId);
-                if (fellowship == null) throw new NotFoundException(nameof(fellowship), Constants.ErrorCode_ReportNotFound + $"Member with Id {request.FellowshipId} not found.");
+                if (fellowship == null) throw new NotFoundException(nameof(fellowship), Constants.ErrorCode_ReportNotFound + $" Fellowship with Id {request.FellowshipId} not found.");
 
                 var updateObj = _mapper.Map<Fellowship>(request);
                 await _fellowshipRepository.UpdateAsync(updateObj);

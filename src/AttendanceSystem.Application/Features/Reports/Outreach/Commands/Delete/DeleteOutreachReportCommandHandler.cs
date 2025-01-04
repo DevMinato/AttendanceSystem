@@ -34,7 +34,7 @@ namespace AttendanceSystem.Application.Features.Reports.Outreach.Commands.Delete
                     throw new ValidationException(validationResult);
 
                 var report = await _outreachReportRepository.GetSingleAsync(x => x.Id == request.ReportId);
-                if (report == null) throw new NotFoundException(nameof(FollowUpReport), $"Report with Id {request.ReportId} not found, ({Constants.ErrorCode_ReportNotFound})");
+                if (report == null) throw new NotFoundException(nameof(FollowUpReport), $" Report with Id {request.ReportId} not found, ({Constants.ErrorCode_ReportNotFound})");
 
                 _unitOfWork.BeginTransaction();
 

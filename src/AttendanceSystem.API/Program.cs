@@ -1,4 +1,5 @@
 using AttendanceSystem.API.Filters;
+using AttendanceSystem.API.Middleware;
 using AttendanceSystem.Application;
 using AttendanceSystem.Persistence;
 using Microsoft.OpenApi.Models;
@@ -53,14 +54,17 @@ namespace AttendanceSystem.API
                 app.UseSwaggerUI();
             }
 
+            // Custom Exception Handler - Ensure it is early in the pipeline to catch exceptions
+            app.UseCustomExceptionHandler();
+
             app.UseHttpsRedirection();
+            app.UseAuthentication();
+            app.UseAuthorization(); // Authorization must come after authentication
 
-            app.UseAuthorization();
-
-
-            app.MapControllers();
+            app.MapControllers(); // Map controllers after middleware
 
             app.Run();
+
         }
     }
 }

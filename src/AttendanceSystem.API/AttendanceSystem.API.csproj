@@ -21,4 +21,9 @@
     <ProjectReference Include="..\AttendanceSystem.Persistence\AttendanceSystem.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Middleware\" />
+    <Folder Include="Utility\Attributes\" />
+  </ItemGroup>
+
 </Project>

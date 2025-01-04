@@ -27,7 +27,7 @@ namespace AttendanceSystem.Application.Features.Members.Queries.GetMember
                 var member = await _memberRepository.GetSingleAsync(x => x.Id == request.Id, false, x => x.Fellowship);
                 if (member == null)
                 {
-                    throw new CustomException(Constants.ErrorCode_MemberRecordNotFound + $"Member with request id {request.Id} not found.");
+                    throw new CustomException(Constants.ErrorCode_MemberRecordNotFound + $" Member with request id {request.Id} not found.");
                 }
 
                 var result = _mapper.Map<MemberDetailResultVM>(member);

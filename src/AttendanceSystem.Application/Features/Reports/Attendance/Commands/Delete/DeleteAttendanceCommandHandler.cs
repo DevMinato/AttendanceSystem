@@ -33,7 +33,7 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Dele
                     throw new ValidationException(validationResult);
 
                 var report = await _attendanceReportRepository.GetSingleAsync(x => x.Id == request.ReportId);
-                if (report == null) throw new NotFoundException(nameof(AttendanceReport), Constants.ErrorCode_ReportNotFound + $"Report with Id {request.ReportId} not found.");
+                if (report == null) throw new NotFoundException(nameof(AttendanceReport), Constants.ErrorCode_ReportNotFound + $" Report with Id {request.ReportId} not found.");
 
                 report.IsDeleted = true;
                 await _attendanceReportRepository.UpdateAsync(report);

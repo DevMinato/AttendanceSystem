@@ -1,4 +1,6 @@
-﻿namespace AttendanceSystem.Application.Features.Members.Queries.GetAllMembers
+﻿using AttendanceSystem.Domain.Enums;
+
+namespace AttendanceSystem.Application.Features.Members.Queries.GetAllMembers
 {
     public class MembersListResultVM
     {
@@ -12,5 +14,6 @@
         public string DisciplerFullName { get; set; }
         public Guid FellowshipId { get; set; }
         public string FellowshipName { get; set; }
+        public string Status { get; set; }
     }
 }

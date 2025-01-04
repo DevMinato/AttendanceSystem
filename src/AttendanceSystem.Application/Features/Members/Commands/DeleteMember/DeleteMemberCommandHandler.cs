@@ -31,7 +31,7 @@ namespace AttendanceSystem.Application.Features.Members.Commands.DeleteMember
                     throw new ValidationException(validationResult);
 
                 var member = await _memberRepository.GetSingleAsync(x => x.Id == request.MemberId);
-                if(member == null) throw new NotFoundException(nameof(member), Constants.ErrorCode_ReportNotFound + $"Member with Id {request.MemberId} not found.");
+                if(member == null) throw new NotFoundException(nameof(member), Constants.ErrorCode_ReportNotFound + $" Member with Id {request.MemberId} not found.");
 
                 member.IsDeleted = true;
                 await _memberRepository.UpdateAsync(member);

@@ -5,12 +5,14 @@ using AttendanceSystem.Application.Features.Pastors.Queries.GetAllPastors;
 using AttendanceSystem.Application.Features.Pastors.Queries.GetPastor;
 using AttendanceSystem.Application.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AttendanceSystem.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PastorController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -44,10 +46,11 @@ namespace AttendanceSystem.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<GetAllPastorsQueryResponse>> GetPastors([FromQuery] GetAllPastorsQuery query)
         {
-            return Ok(await _mediator.Send(query));
+            var obj = await _mediator.Send(query);
+            return Ok(obj);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<GetPastorQueryResponse>> GetPastor(Guid id)
         {
