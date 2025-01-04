@@ -1,6 +1,5 @@
 ﻿using AttendanceSystem.Application.Contracts.Persistence;
 using AttendanceSystem.Application.Exceptions;
-using AttendanceSystem.Application.Features.Fellowships.Queries.GetFellowship;
 using AttendanceSystem.Domain.Entities;
 using AutoMapper;
 using MediatR;
@@ -25,13 +24,13 @@ namespace AttendanceSystem.Application.Features.Pastors.Queries.GetPastor
             var response = new GetPastorQueryResponse();
             try
             {
-                var fellowship = await _pastorRepository.GetSingleAsync(x => x.Id == request.Id, false);
-                if (fellowship == null)
+                var pastor = await _pastorRepository.GetSingleAsync(x => x.Id == request.Id, false);
+                if (pastor == null)
                 {
                     throw new CustomException(Constants.ErrorCode_RecordNotFound + $"Pastor with request id {request.Id} not found.");
                 }
 
-                var result = _mapper.Map<PastorDetailResultVM>(fellowship);
+                var result = _mapper.Map<PastorDetailResultVM>(pastor);
 
                 response.Result = result;
                 response.Success = true;

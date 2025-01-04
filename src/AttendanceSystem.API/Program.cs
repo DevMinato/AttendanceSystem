@@ -1,6 +1,8 @@
+using AttendanceSystem.API.Filters;
 using AttendanceSystem.Application;
 using AttendanceSystem.Persistence;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 namespace AttendanceSystem.API
 {
@@ -17,13 +19,15 @@ namespace AttendanceSystem.API
             builder.Services.AddIdentityServices(builder.Configuration);
 
             builder.Services.AddHttpContextAccessor();
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(opt => { opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Attendance and Reporting Service", Version = "v1" });
-                c.SchemaFilter<EnumSchemaFilter>();
+                c.OperationFilter<FileResultContentTypeOperationFilter>();
+
             });
 
             var app = builder.Build();

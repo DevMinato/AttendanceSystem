@@ -193,7 +193,9 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
                     }
                 ),
                 Expires = DateTime.Now.AddMinutes(_jwtTokenConfig.DurationInMinutes),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Audience = _jwtTokenConfig.Audience, // Set the correct audience
+                Issuer = _jwtTokenConfig.Issuer,
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 

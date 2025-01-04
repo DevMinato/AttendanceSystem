@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace AttendanceSystem.Domain.Enums
 {
@@ -8,6 +9,7 @@ namespace AttendanceSystem.Domain.Enums
         Attendance,
         [Display(Name = "FollowUp")]
         FollowUp,
+        [Display(Name = "Mid-week Service")]
         MidWeekService,
         [Display(Name = "PrayerGroup")]
         PrayerGroup,
