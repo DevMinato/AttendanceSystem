@@ -6,7 +6,7 @@ namespace AttendanceSystem.Application.Utilities
     {
         public static JwtSettings GetJwtSettings()
         {
-            string jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? "";
+            string jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? throw new Exception("key not found");
 
             return new JwtSettings
             {
