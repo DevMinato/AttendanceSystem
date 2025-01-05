@@ -164,8 +164,8 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
 
             // Generate JWT Token
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtTokenConfig.Key.PadRight(32, ' '));
-            //var key = Encoding.ASCII.GetBytes(_jwtTokenConfig.Key);
+            //var key = Encoding.ASCII.GetBytes(_jwtTokenConfig.Key.PadRight(32, ' '));
+            var key = Encoding.UTF8.GetBytes(_jwtTokenConfig.Key);
 
 
             Guid userId = obj.UserId;
@@ -194,7 +194,7 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
                     }
                 ),
                 Expires = DateTime.Now.AddMinutes(_jwtTokenConfig.DurationInMinutes),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256),
                 Audience = _jwtTokenConfig.Audience, // Set the correct audience
                 Issuer = _jwtTokenConfig.Issuer,
             };
