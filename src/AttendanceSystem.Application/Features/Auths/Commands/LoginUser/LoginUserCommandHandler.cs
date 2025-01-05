@@ -165,15 +165,43 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
             // Generate JWT Token
             var tokenHandler = new JwtSecurityTokenHandler();
             //var key = Encoding.ASCII.GetBytes(_jwtTokenConfig.Key.PadRight(32, ' '));
-            var key = Encoding.UTF8.GetBytes(_jwtTokenConfig.Key);
+            //var key = Encoding.UTF8.GetBytes(_jwtTokenConfig.Key);
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtTokenConfig.Key));
 
 
             Guid userId = obj.UserId;
             Guid groupId = obj.GroupId;
             string usertype = obj.UserType;
 
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, obj.UserId.ToString()),
+                new Claim(ClaimTypes.GroupSid, obj.GroupId.ToString()),
+                new Claim(ClaimTypes.UserData, JsonConvert.SerializeObject( new UserResponse(){
+                    UserId=obj.UserId,
+                    FullName=obj.FullName,
+                    EmailAddress=obj.EmailAddress,
+                    MobileNumber=obj.PhoneNumber,
+                    GroupId = obj.GroupId,
+                    UserType = obj.UserType,
+                    Permissions = null,
+                    GroupName=obj.GroupName,
+                    LastLoginDate =obj.LastLoginDate,
+                }))
+            };
 
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+
+            var jwtSecurityToken = new JwtSecurityToken(
+                issuer: _jwtTokenConfig.Issuer,
+                audience: _jwtTokenConfig.Audience,
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(_jwtTokenConfig.DurationInMinutes),
+                signingCredentials: signingCredentials);
+            //return jwtSecurityToken;
+
+
+            /*var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity
                 (
@@ -198,11 +226,11 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
                 Audience = _jwtTokenConfig.Audience, // Set the correct audience
                 Issuer = _jwtTokenConfig.Issuer,
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.CreateToken(tokenDescriptor);*/
 
             return new JwtAuthResult
             {
-                AccessToken = tokenHandler.WriteToken(token),
+                AccessToken = tokenHandler.WriteToken(jwtSecurityToken),
                 RefreshToken = null,
                 ExpirationTime = now.AddMinutes(_jwtTokenConfig.DurationInMinutes)
             };
