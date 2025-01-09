@@ -13,14 +13,16 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.AddFellowsh
     {
         private readonly ILogger<AddFellowshipCommandHandler> _logger;
         private readonly IAsyncRepository<Fellowship> _fellowshipRepository;
+        private readonly IAsyncRepository<Pastor> _pastorRepository;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        public AddFellowshipCommandHandler(ILogger<AddFellowshipCommandHandler> logger, IAsyncRepository<Fellowship> fellowshipRepository, IMapper mapper, IUserService userService)
+        public AddFellowshipCommandHandler(ILogger<AddFellowshipCommandHandler> logger, IAsyncRepository<Fellowship> fellowshipRepository, IMapper mapper, IUserService userService, IAsyncRepository<Pastor> pastorRepository)
         {
             _logger = logger;
             _fellowshipRepository = fellowshipRepository;
             _mapper = mapper;
             _userService = userService;
+            _pastorRepository = pastorRepository;
         }
 
         public async Task<AddFellowshipCommandResponse> Handle(AddFellowshipCommand request, CancellationToken cancellationToken)
@@ -28,7 +30,7 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.AddFellowsh
             var response = new AddFellowshipCommandResponse();
             try
             {
-                var validator = new AddFellowshipCommandValidator();
+                var validator = new AddFellowshipCommandValidator(_fellowshipRepository, _pastorRepository);
                 var validationResult = await validator.ValidateAsync(request);
                 if (validationResult.Errors.Count > 0)
                     throw new ValidationException(validationResult);

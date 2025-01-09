@@ -12,12 +12,14 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.EditFellows
     {
         private readonly ILogger<EditFellowshipCommandHandler> _logger;
         private readonly IAsyncRepository<Fellowship> _fellowshipRepository;
+        private readonly IAsyncRepository<Pastor> _pastorRepository;
         private readonly IMapper _mapper;
-        public EditFellowshipCommandHandler(ILogger<EditFellowshipCommandHandler> logger, IAsyncRepository<Fellowship> fellowshipRepository, IMapper mapper)
+        public EditFellowshipCommandHandler(ILogger<EditFellowshipCommandHandler> logger, IAsyncRepository<Fellowship> fellowshipRepository, IMapper mapper, IAsyncRepository<Pastor> pastorRepository)
         {
             _logger = logger;
             _fellowshipRepository = fellowshipRepository;
             _mapper = mapper;
+            _pastorRepository = pastorRepository;
         }
 
         public async Task<BaseResponse> Handle(EditFellowshipCommand request, CancellationToken cancellationToken)
@@ -25,7 +27,7 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.EditFellows
             var response = new BaseResponse();
             try
             {
-                var validator = new EditFellowshipCommandValidator(_fellowshipRepository);
+                var validator = new EditFellowshipCommandValidator(_fellowshipRepository, _pastorRepository);
                 var validationResult = await validator.ValidateAsync(request);
                 if (validationResult.Errors.Count > 0)
                     throw new ValidationException(validationResult);

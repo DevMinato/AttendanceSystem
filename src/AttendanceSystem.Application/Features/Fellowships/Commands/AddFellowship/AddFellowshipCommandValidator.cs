@@ -1,5 +1,4 @@
 ﻿using AttendanceSystem.Application.Contracts.Persistence;
-using AttendanceSystem.Application.Features.Auths.Commands.CreateUser;
 using AttendanceSystem.Domain.Entities;
 using AttendanceSystem.Domain.Enums;
 using FluentValidation;
@@ -9,9 +8,12 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.AddFellowsh
     public class AddFellowshipCommandValidator : AbstractValidator<AddFellowshipCommand>
     {
         private readonly IAsyncRepository<Fellowship> _fellowshipRepository;
-        public AddFellowshipCommandValidator(IAsyncRepository<Fellowship> fellowshipRepository)
+        private readonly IAsyncRepository<Pastor> _pastorRepository;
+        public AddFellowshipCommandValidator(IAsyncRepository<Fellowship> fellowshipRepository, IAsyncRepository<Pastor> pastorRepository)
         {
             _fellowshipRepository = fellowshipRepository;
+            _pastorRepository = pastorRepository;
+
             RuleFor(x => x.Name).Cascade(CascadeMode.Stop)
                 .NotEmpty()
                 .NotNull()
@@ -22,7 +24,9 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.AddFellowsh
             RuleFor(x => x.PastorId).Cascade(CascadeMode.Stop)
                 .NotEmpty()
                 .NotNull()
-                .WithMessage("Pastor identifier is required");
+                .WithMessage("Pastor identifier is required")
+                .Must(x => BeValidPastorId(x.Value).Result)
+                .WithMessage("Pastor identifier is not valid.");
 
             RuleFor(x => x)
                 .MustAsync(IsUnique)
@@ -32,6 +36,14 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.AddFellowsh
         private bool BeValidGenderType(GenderEnum? gender)
         {
             return Enum.IsDefined(typeof(GenderEnum), gender);
+        }
+
+        private async Task<bool> BeValidPastorId(Guid id)
+        {
+            var count = await _pastorRepository.CountAsync(x => x.Id == id);
+            if (count == 0)
+                return false;
+            return true;
         }
 
         private async Task<bool> IsUnique(AddFellowshipCommand command, CancellationToken cancellationToken)
