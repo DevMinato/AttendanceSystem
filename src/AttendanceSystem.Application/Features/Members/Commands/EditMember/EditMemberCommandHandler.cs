@@ -1,5 +1,6 @@
 ﻿using AttendanceSystem.Application.Contracts.Persistence;
 using AttendanceSystem.Application.Exceptions;
+using AttendanceSystem.Application.Features.Fellowships.Commands.EditFellowship;
 using AttendanceSystem.Application.Responses;
 using AttendanceSystem.Domain.Entities;
 using AutoMapper;
@@ -35,8 +36,8 @@ namespace AttendanceSystem.Application.Features.Members.Commands.EditMember
                 var member = await _memberRepository.GetSingleAsync(x => x.Id == request.MemberId);
                 if (member == null) throw new NotFoundException(nameof(member), Constants.ErrorCode_ReportNotFound + $" Member with Id {request.MemberId} not found.");
 
-                var updateObj = _mapper.Map<Member>(request);
-                await _memberRepository.UpdateAsync(updateObj);
+                _mapper.Map(request, member, typeof(EditMemberCommand), typeof(Member));
+                await _memberRepository.UpdateAsync(member);
 
                 response.Success = true;
                 response.Message = Constants.SuccessResponse;

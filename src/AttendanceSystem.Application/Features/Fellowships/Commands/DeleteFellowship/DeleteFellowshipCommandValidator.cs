@@ -12,9 +12,9 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.DeleteFello
             RuleFor(x => x.FellowshipId).Cascade(CascadeMode.Stop)
                 .NotEmpty()
                 .NotNull()
-                .WithMessage("Member identifier is required")
+                .WithMessage("Fellowship identifier is required")
                 .Must(x => BeValidMemberId(x.Value).Result)
-                .WithMessage("Member identifier is not valid.");
+                .WithMessage("Fellowship identifier is not valid.");
         }
 
         private async Task<bool> BeValidMemberId(Guid id)

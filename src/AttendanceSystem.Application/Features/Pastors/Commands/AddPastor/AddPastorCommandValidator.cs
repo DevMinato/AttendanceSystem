@@ -1,5 +1,4 @@
 ﻿using AttendanceSystem.Application.Contracts.Persistence;
-using AttendanceSystem.Application.Features.Auths.Commands.CreateUser;
 using AttendanceSystem.Domain.Entities;
 using AttendanceSystem.Domain.Enums;
 using FluentValidation;

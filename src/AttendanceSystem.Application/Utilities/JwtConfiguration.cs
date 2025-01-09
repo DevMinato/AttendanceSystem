@@ -12,7 +12,7 @@ namespace AttendanceSystem.Application.Utilities
             {
                 Issuer = "orchestra.io",
                 Audience = "api.orchestra.io",
-                DurationInMinutes = 20,
+                DurationInMinutes = 60,
                 Key = jwtKey
             };
         }

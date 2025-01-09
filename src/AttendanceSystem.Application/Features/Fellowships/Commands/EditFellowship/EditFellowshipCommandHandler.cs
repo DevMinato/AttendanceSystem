@@ -33,8 +33,8 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.EditFellows
                 var fellowship = await _fellowshipRepository.GetSingleAsync(x => x.Id == request.FellowshipId);
                 if (fellowship == null) throw new NotFoundException(nameof(fellowship), Constants.ErrorCode_ReportNotFound + $" Fellowship with Id {request.FellowshipId} not found.");
 
-                var updateObj = _mapper.Map<Fellowship>(request);
-                await _fellowshipRepository.UpdateAsync(updateObj);
+                _mapper.Map(request, fellowship, typeof(EditFellowshipCommand), typeof(Fellowship));
+                await _fellowshipRepository.UpdateAsync(fellowship);
 
                 response.Success = true;
                 response.Message = Constants.SuccessResponse;

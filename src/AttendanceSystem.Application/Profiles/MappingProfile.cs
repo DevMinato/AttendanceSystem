@@ -340,7 +340,7 @@ namespace AttendanceSystem.Application.Profiles
                 .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
 
             CreateMap<EditFellowshipCommand, Fellowship>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(b => b.PastorId))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(b => b.FellowshipId))
                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())

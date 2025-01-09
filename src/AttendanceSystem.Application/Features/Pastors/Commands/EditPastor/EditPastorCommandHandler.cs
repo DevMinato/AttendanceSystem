@@ -1,5 +1,6 @@
 ﻿using AttendanceSystem.Application.Contracts.Persistence;
 using AttendanceSystem.Application.Exceptions;
+using AttendanceSystem.Application.Features.Fellowships.Commands.EditFellowship;
 using AttendanceSystem.Application.Responses;
 using AttendanceSystem.Domain.Entities;
 using AutoMapper;
@@ -32,11 +33,11 @@ namespace AttendanceSystem.Application.Features.Pastors.Commands.EditPastor
                 if (validationResult.Errors.Count > 0)
                     throw new ValidationException(validationResult);
 
-                var fellowship = await _pastorRepository.GetSingleAsync(x => x.Id == request.PastorId);
-                if (fellowship == null) throw new NotFoundException(nameof(fellowship), Constants.ErrorCode_ReportNotFound + $" Pastor with Id {request.PastorId} not found.");
+                var pastor = await _pastorRepository.GetSingleAsync(x => x.Id == request.PastorId);
+                if (pastor == null) throw new NotFoundException(nameof(pastor), Constants.ErrorCode_ReportNotFound + $" Pastor with Id {request.PastorId} not found.");
 
-                var updateObj = _mapper.Map<Pastor>(request);
-                await _pastorRepository.UpdateAsync(updateObj);
+                _mapper.Map(request, pastor, typeof(EditPastorCommand), typeof(Pastor));
+                await _pastorRepository.UpdateAsync(pastor);
 
                 response.Success = true;
                 response.Message = Constants.SuccessResponse;
