@@ -1,4 +1,6 @@
-﻿using AttendanceSystem.Application.Features.Fellowships.Commands.AddFellowship;
+﻿using AttendanceSystem.Application.Features.Activities.Queries.GetActivity;
+using AttendanceSystem.Application.Features.Activities.Queries.GetAllActivities;
+using AttendanceSystem.Application.Features.Fellowships.Commands.AddFellowship;
 using AttendanceSystem.Application.Features.Fellowships.Commands.EditFellowship;
 using AttendanceSystem.Application.Features.Fellowships.Queries.GetAllFellowships;
 using AttendanceSystem.Application.Features.Fellowships.Queries.GetFellowship;
@@ -31,6 +33,13 @@ namespace AttendanceSystem.Application.Profiles
     {
         public MappingProfile()
         {
+
+            CreateMap<Activity, ActivityDetailResultVM>();
+
+            CreateMap<Activity, ActivitiesListResultVM>();
+
+            CreateMap<PagedResult<Activity>, PagedResult<ActivitiesListResultVM>>();
+
             /* Start Member Mapping */
 
             CreateMap<AddMemberCommand, Member>()
