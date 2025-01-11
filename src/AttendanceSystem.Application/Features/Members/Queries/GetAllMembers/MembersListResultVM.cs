@@ -1,6 +1,4 @@
-﻿using AttendanceSystem.Domain.Enums;
-
-namespace AttendanceSystem.Application.Features.Members.Queries.GetAllMembers
+﻿namespace AttendanceSystem.Application.Features.Members.Queries.GetAllMembers
 {
     public class MembersListResultVM
     {
