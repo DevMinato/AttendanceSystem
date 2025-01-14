@@ -44,6 +44,7 @@ namespace AttendanceSystem.API.Controllers
 
         [HttpGet("")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [AllowAnonymous]
         public async Task<ActionResult<GetAllFellowshipsQueryResponse>> GetFellowships([FromQuery] GetAllFellowshipsQuery query)
         {
             return Ok(await _mediator.Send(query));
@@ -51,6 +52,7 @@ namespace AttendanceSystem.API.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [AllowAnonymous]
         public async Task<ActionResult<GetFellowshipQueryResponse>> GetFellowship(Guid id)
         {
             return Ok(await _mediator.Send(new GetFellowshipQuery { Id = id }));
