@@ -31,6 +31,17 @@ namespace AttendanceSystem.API
 
             });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("UnifiedCorsPolicy", builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+                });
+            });
+
             var app = builder.Build();
 
             // Run Database Seeder
@@ -59,6 +70,7 @@ namespace AttendanceSystem.API
 
             app.UseHttpsRedirection();
             app.UseAuthentication();
+            app.UseCors("UnifiedCorsPolicy");
             app.UseAuthorization(); // Authorization must come after authentication
 
             app.MapControllers(); // Map controllers after middleware
