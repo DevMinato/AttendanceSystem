@@ -48,6 +48,10 @@ namespace AttendanceSystem.Application.Features.Members.Queries.GetAllMembers
                 {
                     filter = filter.And(c => c.FellowshipId == request.FellowshipId);
                 }
+                if (request.DisciplerId.HasValue)
+                {
+                    filter = filter.And(c => c.DisciplerId == request.DisciplerId);
+                }
                 var pagedResult = await _memberRepository.GetPagedFilteredAsync(filter, request.Page, request.PageSize, request.SortColumn,
                     request.SortOrder, false, x => x.Fellowship);
 
