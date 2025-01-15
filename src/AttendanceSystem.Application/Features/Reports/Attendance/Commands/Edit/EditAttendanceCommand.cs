@@ -9,6 +9,8 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Edit
         public Guid? MemberId { get; set; }
         public Guid? ActivityId { get; set; }
         public bool IsPresent { get; set; } = false;
+        public string? Notes { get; set; } = string.Empty;
+        public bool? IsFirstTimer { get; set; } = false;
         public DateTime Date { get; set; } = DateTime.UtcNow;
     }
 }

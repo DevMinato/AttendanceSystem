@@ -10,7 +10,7 @@ namespace AttendanceSystem.Domain.Entities
         public bool IsPresent { get; set; } // True if present, false if absent
         public DateTime Date { get; set; } // Date of the activity
         public string? Notes { get; set; }
-        public bool? IsFirsttimer { get; set; }
+        public bool? IsFirstTimer { get; set; }
 
         // Navigation Properties
         public Member Member { get; set; }

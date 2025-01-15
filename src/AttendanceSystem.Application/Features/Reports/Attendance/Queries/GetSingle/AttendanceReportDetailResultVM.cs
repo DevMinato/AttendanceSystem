@@ -7,6 +7,8 @@
         public Guid ActivityId { get; set; }
         public string ActivityName { get; set; }
         public bool IsPresent { get; set; }
+        public string? Notes { get; set; }
+        public bool? IsFirstTimer { get; set; }
         public DateTime Date { get; set; }
 
         public string Status { get; set; }
