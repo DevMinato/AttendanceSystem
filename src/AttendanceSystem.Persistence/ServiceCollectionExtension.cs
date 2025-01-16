@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 
@@ -28,6 +29,8 @@ namespace AttendanceSystem.Persistence
 
         public static void AddIdentityServices(this IServiceCollection services, IConfiguration configuration)
         {
+            var connectionString = configuration.GetConnectionString("AppConnectionString");
+            Console.WriteLine(connectionString);
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("AppConnectionString")));
 
             var jwtSettings = JwtConfiguration.GetJwtSettings();
