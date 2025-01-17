@@ -1,5 +1,6 @@
 ﻿using AttendanceSystem.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace AttendanceSystem.Persistence
 {
@@ -51,6 +52,21 @@ namespace AttendanceSystem.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                //If the actual entity is an auditable type. 
+                if (typeof(AuditableEntity).IsAssignableFrom(entityType.ClrType))
+                {
+                    //add Global Query Filter to exclude deleted items
+                    //https://docs.microsoft.com/en-us/ef/core/querying/filters
+                    //That always excludes deleted items. Opt out by using dbSet.IgnoreQueryFilters()
+                    var parameter = Expression.Parameter(entityType.ClrType, "p");
+                    var deletedCheck = Expression.Lambda(Expression.Equal(Expression.Property(parameter, "IsDeleted"), Expression.Constant(false)), parameter);
+                    modelBuilder.Entity(entityType.ClrType).HasQueryFilter(deletedCheck);
+                }
+            }
+
+
             base.OnModelCreating(modelBuilder);
 
             // One Fellowship can have many Pastors
