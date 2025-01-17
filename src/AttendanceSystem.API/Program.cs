@@ -35,7 +35,7 @@ namespace AttendanceSystem.API
             {
                 options.AddPolicy("UnifiedCorsPolicy", builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000")
+                    builder.WithOrigins("http://localhost:3000", "https://harvest-tracker.vercel.app")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials();
