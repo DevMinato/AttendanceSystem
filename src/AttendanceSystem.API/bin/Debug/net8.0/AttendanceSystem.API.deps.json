@@ -11,6 +11,7 @@
           "AttendanceSystem.Application": "1.0.0",
           "AttendanceSystem.Persistence": "1.0.0",
           "MediatR": "12.3.0",
+          "Microsoft.EntityFrameworkCore.Design": "8.0.6",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.6",
           "Swashbuckle.AspNetCore": "6.4.0"
         },

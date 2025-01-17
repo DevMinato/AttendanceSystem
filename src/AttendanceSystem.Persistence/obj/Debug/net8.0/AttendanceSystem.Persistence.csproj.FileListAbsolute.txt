@@ -16,6 +16,7 @@ C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Pers
 C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\AttendanceSystem.Persistence.pdb
 C:\Users\ayodeji.bolanle\source\repos\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\ref\AttendanceSystem.Persistence.dll
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\bin\Debug\net8.0\AttendanceSystem.Persistence.deps.json
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\bin\Debug\net8.0\AttendanceSystem.Persistence.runtimeconfig.json
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\bin\Debug\net8.0\AttendanceSystem.Persistence.dll
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\bin\Debug\net8.0\AttendanceSystem.Persistence.pdb
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\bin\Debug\net8.0\AttendanceSystem.Application.dll
@@ -27,9 +28,10 @@ C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\AttendanceSystem.Persistence.AssemblyInfoInputs.cache
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\AttendanceSystem.Persistence.AssemblyInfo.cs
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\AttendanceSystem.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\AttendanceSystem.Persistence.sourcelink.json
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\Attendan.9246B23A.Up2Date
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\AttendanceSystem.Persistence.dll
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\refint\AttendanceSystem.Persistence.dll
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\AttendanceSystem.Persistence.pdb
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\AttendanceSystem.Persistence.genruntimeconfig.cache
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\ref\AttendanceSystem.Persistence.dll
-C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.Persistence\obj\Debug\net8.0\AttendanceSystem.Persistence.sourcelink.json

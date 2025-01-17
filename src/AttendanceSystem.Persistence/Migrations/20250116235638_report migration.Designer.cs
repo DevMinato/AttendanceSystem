@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AttendanceSystem.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250102232454_attendance-migration")]
-    partial class attendancemigration
+    [Migration("20250116235638_report migration")]
+    partial class reportmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,6 +146,9 @@ namespace AttendanceSystem.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("IsFirstTimer")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsPresent")
                         .HasColumnType("bit");
 
@@ -153,6 +156,9 @@ namespace AttendanceSystem.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
@@ -206,9 +212,6 @@ namespace AttendanceSystem.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PastorId")
-                        .IsUnique();
 
                     b.ToTable("Fellowships", "RS");
                 });
@@ -380,7 +383,6 @@ namespace AttendanceSystem.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -558,7 +560,6 @@ namespace AttendanceSystem.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -614,15 +615,6 @@ namespace AttendanceSystem.Persistence.Migrations
                     b.Navigation("Activity");
 
                     b.Navigation("Member");
-                });
-
-            modelBuilder.Entity("AttendanceSystem.Domain.Entities.Fellowship", b =>
-                {
-                    b.HasOne("AttendanceSystem.Domain.Entities.Pastor", null)
-                        .WithOne()
-                        .HasForeignKey("AttendanceSystem.Domain.Entities.Fellowship", "PastorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("AttendanceSystem.Domain.Entities.FollowUpDetail", b =>
