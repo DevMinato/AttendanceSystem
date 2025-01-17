@@ -46,11 +46,11 @@ namespace AttendanceSystem.Application.Features.Reports.Outreach.Commands.Delete
                     _unitOfWork.OutreachDetailRepository.Update(detail);
                 }
 
-                _unitOfWork.Commit();
-                _unitOfWork.Dispose();
-
                 report.IsDeleted = true;
                 await _outreachReportRepository.UpdateAsync(report);
+
+                _unitOfWork.Commit();
+                _unitOfWork.Dispose();
 
                 response.Success = true;
                 response.Message = Constants.SuccessResponse;
