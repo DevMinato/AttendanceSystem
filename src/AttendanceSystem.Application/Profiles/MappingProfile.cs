@@ -1,6 +1,4 @@
-﻿using AttendanceSystem.Application.Features.Activities.Queries.GetActivity;
-using AttendanceSystem.Application.Features.Activities.Queries.GetAllActivities;
-using AttendanceSystem.Application.Features.Fellowships.Commands.AddFellowship;
+﻿using AttendanceSystem.Application.Features.Fellowships.Commands.AddFellowship;
 using AttendanceSystem.Application.Features.Fellowships.Commands.EditFellowship;
 using AttendanceSystem.Application.Features.Fellowships.Queries.GetAllFellowships;
 using AttendanceSystem.Application.Features.Fellowships.Queries.GetFellowship;
@@ -24,6 +22,8 @@ using AttendanceSystem.Application.Features.Reports.Outreach.Commands.Create;
 using AttendanceSystem.Application.Features.Reports.Outreach.Commands.Edit;
 using AttendanceSystem.Application.Features.Reports.Outreach.Queries.GetAll;
 using AttendanceSystem.Application.Features.Reports.Outreach.Queries.GetSingle;
+using AttendanceSystem.Application.Features.Setups.Activities.Queries.GetActivity;
+using AttendanceSystem.Application.Features.Setups.Activities.Queries.GetAllActivities;
 using AttendanceSystem.Domain.Entities;
 using AutoMapper;
 

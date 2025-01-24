@@ -1,7 +1,7 @@
 ﻿using AttendanceSystem.Application.Responses;
 using AttendanceSystem.Domain.Entities;
 
-namespace AttendanceSystem.Application.Features.Activities.Queries.GetAllActivities
+namespace AttendanceSystem.Application.Features.Setups.Activities.Queries.GetAllActivities
 {
     public class GetAllActivitiesQueryResponse : BaseResponse
     {

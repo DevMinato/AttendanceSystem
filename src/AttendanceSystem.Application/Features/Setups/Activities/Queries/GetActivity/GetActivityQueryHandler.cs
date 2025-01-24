@@ -5,7 +5,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace AttendanceSystem.Application.Features.Activities.Queries.GetActivity
+namespace AttendanceSystem.Application.Features.Setups.Activities.Queries.GetActivity
 {
     public class GetActivityQueryHandler : IRequestHandler<GetActivityQuery, GetActivityQueryResponse>
     {

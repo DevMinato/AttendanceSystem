@@ -253,3 +253,7 @@ C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\Test\obj\Debug\net8.0\Test.pdb
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\Test\obj\Debug\net8.0\Test.genruntimeconfig.cache
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\Test\obj\Debug\net8.0\ref\Test.dll
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\Test\bin\Debug\net8.0\AWSSDK.Core.dll
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\Test\bin\Debug\net8.0\AWSSDK.S3.dll
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\Test\bin\Debug\net8.0\MimeTypesMap.dll
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\Test\bin\Debug\net8.0\System.IO.Pipelines.dll

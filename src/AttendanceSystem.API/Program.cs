@@ -1,7 +1,9 @@
 using AttendanceSystem.API.Filters;
 using AttendanceSystem.API.Middleware;
 using AttendanceSystem.Application;
+using AttendanceSystem.Application.Models;
 using AttendanceSystem.Persistence;
+using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
@@ -22,6 +24,9 @@ namespace AttendanceSystem.API
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllers()
                 .AddJsonOptions(opt => { opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
+
+            builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>

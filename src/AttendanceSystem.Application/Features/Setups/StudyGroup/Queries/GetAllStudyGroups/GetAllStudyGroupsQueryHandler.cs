@@ -6,26 +6,26 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace AttendanceSystem.Application.Features.Activities.Queries.GetAllActivities
+namespace AttendanceSystem.Application.Features.Setups.StudyGroup.Queries.GetAllStudyGroups
 {
-    public class GetAllActivitiesQueryHandler : IRequestHandler<GetAllActivitiesQuery, GetAllActivitiesQueryResponse>
+    public class GetAllStudyGroupsQueryHandler : IRequestHandler<GetAllStudyGroupsQuery, GetAllStudyGroupsQueryResponse>
     {
-        private readonly ILogger<GetAllActivitiesQueryHandler> _logger;
+        private readonly ILogger<GetAllStudyGroupsQueryHandler> _logger;
+        private readonly IAsyncRepository<Domain.Entities.StudyGroup> _studyGroupRepository;
         private readonly IMapper _mapper;
-        private readonly IAsyncRepository<Activity> _activityRepository;
-        public GetAllActivitiesQueryHandler(ILogger<GetAllActivitiesQueryHandler> logger, IMapper mapper, IAsyncRepository<Activity> activityRepository)
+        public GetAllStudyGroupsQueryHandler(ILogger<GetAllStudyGroupsQueryHandler> logger, IAsyncRepository<Domain.Entities.StudyGroup> studyGroupRepository, IMapper mapper)
         {
             _logger = logger;
+            _studyGroupRepository = studyGroupRepository;
             _mapper = mapper;
-            _activityRepository = activityRepository;
         }
 
-        public async Task<GetAllActivitiesQueryResponse> Handle(GetAllActivitiesQuery request, CancellationToken cancellationToken)
+        public async Task<GetAllStudyGroupsQueryResponse> Handle(GetAllStudyGroupsQuery request, CancellationToken cancellationToken)
         {
-            var response = new GetAllActivitiesQueryResponse();
+            var response = new GetAllStudyGroupsQueryResponse();
             try
             {
-                var filter = PredicateBuilder.True<Activity>();
+                var filter = PredicateBuilder.True<Domain.Entities.StudyGroup>();
 
                 if (request.StartDate.HasValue)
                 {
@@ -38,13 +38,13 @@ namespace AttendanceSystem.Application.Features.Activities.Queries.GetAllActivit
                 }
                 if (!string.IsNullOrWhiteSpace(request.Search))
                 {
-                    filter = filter.And(c => c.Name.ToLower().Contains(request.Search.ToLower()) || c.Description.ToLower().Contains(request.Search.ToLower()));
+                    filter = filter.And(c => c.StudyGroupMaterial.ToLower().Contains(request.Search.ToLower()) || c.StudyGroupQuestion.Contains(request.Search.ToLower()));
                 }
 
-                var pagedResult = await _activityRepository.GetPagedFilteredAsync(filter, request.Page, request.PageSize, request.SortColumn,
-                    request.SortOrder, false, x => x.ActivityReports);
+                var pagedResult = await _studyGroupRepository.GetPagedFilteredAsync(filter, request.Page, request.PageSize, request.SortColumn,
+                    request.SortOrder, false);
 
-                var result = _mapper.Map<PagedResult<ActivitiesListResultVM>>(pagedResult);
+                var result = _mapper.Map<PagedResult<StudyGroupsListResultVM>>(pagedResult);
 
                 response.Result = result;
                 response.Success = true;
@@ -53,7 +53,7 @@ namespace AttendanceSystem.Application.Features.Activities.Queries.GetAllActivit
             catch (HttpRequestException ex)
             {
                 _logger.LogError(ex.ToString() + "{Microservice}", Constants.Microservice);
-                response.Message = $"Error completing activity querying request.";
+                response.Message = $"Error completing fellowship querying request.";
             }
             catch (CustomException ex)
             {

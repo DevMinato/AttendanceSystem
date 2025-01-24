@@ -238,3 +238,6 @@ C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.API\obj\Debug\net8.0\AttendanceSystem.API.pdb
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.API\obj\Debug\net8.0\AttendanceSystem.API.genruntimeconfig.cache
 C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.API\obj\Debug\net8.0\ref\AttendanceSystem.API.dll
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.API\bin\Debug\net8.0\AWSSDK.Core.dll
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.API\bin\Debug\net8.0\AWSSDK.S3.dll
+C:\Users\ayodeji.bolanle\OneDrive - NLPC PFA\Documents\ORCHESTRA\code_Repository\AttendanceSystem\src\AttendanceSystem.API\bin\Debug\net8.0\MimeTypesMap.dll

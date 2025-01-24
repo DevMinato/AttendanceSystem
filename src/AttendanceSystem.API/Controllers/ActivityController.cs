@@ -1,5 +1,5 @@
-﻿using AttendanceSystem.Application.Features.Activities.Queries.GetActivity;
-using AttendanceSystem.Application.Features.Activities.Queries.GetAllActivities;
+﻿using AttendanceSystem.Application.Features.Setups.Activities.Queries.GetActivity;
+using AttendanceSystem.Application.Features.Setups.Activities.Queries.GetAllActivities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

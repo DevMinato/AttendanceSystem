@@ -16,6 +16,6 @@ namespace AttendanceSystem.Domain.Entities
         // Navigation Properties
         public Member Member { get; set; }
         public Activity Activity { get; set; }
-        public ICollection<FollowUpDetail> FollowUpDetails { get; set; }
+        public ICollection<FollowUpDetail> FollowUpDetails { get; set; } = new List<FollowUpDetail>();
     }
 }

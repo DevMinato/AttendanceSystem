@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace AttendanceSystem.Application.Features.Activities.Queries.GetActivity
+namespace AttendanceSystem.Application.Features.Setups.Activities.Queries.GetActivity
 {
     public class GetActivityQuery : IRequest<GetActivityQueryResponse>
     {

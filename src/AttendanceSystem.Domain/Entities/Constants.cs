@@ -18,6 +18,7 @@
         public const string ErrorCode_InactiveAccount = "904";
         public const string ErrorCode_InvalidDetails = "905";
         public const string ErrorCode_RecordNotFound = "906";
+        public const string ErrorCode_SystemError = "99";
     }
 
     public class CustomClaimTypes

@@ -1,6 +1,6 @@
 ﻿using AttendanceSystem.Domain.Enums;
 
-namespace AttendanceSystem.Application.Features.Activities.Queries.GetAllActivities
+namespace AttendanceSystem.Application.Features.Setups.Activities.Queries.GetAllActivities
 {
     public class ActivitiesListResultVM
     {
