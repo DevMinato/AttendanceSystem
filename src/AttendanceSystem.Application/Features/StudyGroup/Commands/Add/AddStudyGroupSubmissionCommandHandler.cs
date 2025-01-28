@@ -44,9 +44,8 @@ namespace AttendanceSystem.Application.Features.StudyGroup.Commands.Add
 
                 var studyGroup = _mapper.Map<StudyGroupSubmission>(request);
 
-
                 // Proceed with document upload if approval is not required
-                var docUpload = await _documentUpload.UploadDocuments(_userService.UserDetails().UserId.ToString(), new List<DocumentRequest> { request.Upload },
+                var docUpload = await _documentUpload.UploadDocuments(studyGroup.Id.ToString(), new List<DocumentRequest> { request.Upload },
                                                                       UserType.Member.DisplayName());
 
                 if (!docUpload.Status && docUpload.ErrorResponse != null) throw new CustomException("Study Group assignment upload failed.");

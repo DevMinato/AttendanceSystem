@@ -24,6 +24,14 @@ using AttendanceSystem.Application.Features.Reports.Outreach.Queries.GetAll;
 using AttendanceSystem.Application.Features.Reports.Outreach.Queries.GetSingle;
 using AttendanceSystem.Application.Features.Setups.Activities.Queries.GetActivity;
 using AttendanceSystem.Application.Features.Setups.Activities.Queries.GetAllActivities;
+using AttendanceSystem.Application.Features.Setups.StudyGroup.Commands.Add;
+using AttendanceSystem.Application.Features.Setups.StudyGroup.Commands.Edit;
+using AttendanceSystem.Application.Features.Setups.StudyGroup.Queries.GetAllStudyGroups;
+using AttendanceSystem.Application.Features.Setups.StudyGroup.Queries.GetStudyGroup;
+using AttendanceSystem.Application.Features.StudyGroup.Commands.Add;
+using AttendanceSystem.Application.Features.StudyGroup.Commands.Edit;
+using AttendanceSystem.Application.Features.StudyGroup.Queries.Get;
+using AttendanceSystem.Application.Features.StudyGroup.Queries.GetAll;
 using AttendanceSystem.Domain.Entities;
 using AutoMapper;
 
@@ -74,19 +82,6 @@ namespace AttendanceSystem.Application.Profiles
                 .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
                 .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
 
-            /*CreateMap<PagedResult<Member>, GetAllMembersQueryResponse>()
-               .ForMember(dest => dest.Result, opt => opt.MapFrom(b => b))
-               .ForMember(dest => dest.Success, opt => opt.Ignore())
-               .ForMember(dest => dest.Message, opt => opt.Ignore())
-               .ForMember(dest => dest.ValidationErrors, opt => opt.Ignore());
-
-
-            CreateMap<PagedResult<Member>, GetMemberQueryResponse>()
-               .ForMember(dest => dest.Result, opt => opt.MapFrom(b => b))
-               .ForMember(dest => dest.Success, opt => opt.Ignore())
-               .ForMember(dest => dest.Message, opt => opt.Ignore())
-               .ForMember(dest => dest.ValidationErrors, opt => opt.Ignore());*/
-
             CreateMap<Member, MemberDetailResultVM>()
                 .ForMember(dest => dest.FellowshipName, opt => opt.MapFrom(i => i.Fellowship.Name))
                 .ForMember(dest => dest.DisciplerFullName, opt => opt.Ignore());
@@ -124,18 +119,6 @@ namespace AttendanceSystem.Application.Profiles
                 .ForMember(dest => dest.Status, opt => opt.Ignore())
                 .ForMember(dest => dest.IsActive, opt => opt.Ignore())
                 .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
-
-            /*CreateMap<PagedResult<AttendanceReport>, GetAttendanceReportsQueryResponse>()
-               .ForMember(dest => dest.Result, opt => opt.MapFrom(b => b))
-               .ForMember(dest => dest.Success, opt => opt.Ignore())
-               .ForMember(dest => dest.Message, opt => opt.Ignore())
-               .ForMember(dest => dest.ValidationErrors, opt => opt.Ignore());
-
-            CreateMap<PagedResult<AttendanceReport>, GetAttendanceReportQueryResponse>()
-               .ForMember(dest => dest.Result, opt => opt.MapFrom(b => b))
-               .ForMember(dest => dest.Success, opt => opt.Ignore())
-               .ForMember(dest => dest.Message, opt => opt.Ignore())
-               .ForMember(dest => dest.ValidationErrors, opt => opt.Ignore());*/
 
             CreateMap<AttendanceReport, AttendanceReportDetailResultVM>()
                 .ForMember(dest => dest.MemberFullName, opt => opt.MapFrom(i => string.Join(' ', i.Member.FirstName, i.Member.LastName)))
@@ -197,20 +180,6 @@ namespace AttendanceSystem.Application.Profiles
                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
                 .ForMember(dest => dest.ModifiedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
-
-
-            /*CreateMap<PagedResult<FollowUpReport>, GetFollowupReportsQueryResponse>()
-               .ForMember(dest => dest.Result, opt => opt.MapFrom(b => b))
-               .ForMember(dest => dest.Success, opt => opt.Ignore())
-               .ForMember(dest => dest.Message, opt => opt.Ignore())
-               .ForMember(dest => dest.ValidationErrors, opt => opt.Ignore());
-
-            CreateMap<PagedResult<FollowUpReport>, GetFollowupReportQueryResponse>()
-               .ForMember(dest => dest.Result, opt => opt.MapFrom(b => b))
-               .ForMember(dest => dest.Success, opt => opt.Ignore())
-               .ForMember(dest => dest.Message, opt => opt.Ignore())
-               .ForMember(dest => dest.ValidationErrors, opt => opt.Ignore());*/
-
 
             CreateMap<FollowUpReport, FollowupReportDetailResultVM>()
                 .ForMember(dest => dest.MemberFullName, opt => opt.MapFrom(i => string.Join(' ', i.Member.FirstName, i.Member.LastName)))
@@ -367,6 +336,99 @@ namespace AttendanceSystem.Application.Profiles
             CreateMap<PagedResult<Fellowship>, PagedResult<FellowshipsListResultVM>>();
 
             /* End Fellowship Mapping */
+
+            /* Start Study Group Mapping */
+
+            CreateMap<AddStudyGroupCommand, StudyGroup>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Year, opt => opt.Ignore())
+                .ForMember(dest => dest.Month, opt => opt.Ignore())
+                .ForMember(dest => dest.Week, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.ModifiedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.Ignore())
+                .ForMember(dest => dest.IsActive, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
+
+            CreateMap<EditStudyGroupCommand, StudyGroup>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(b => b.StudyGroupId))
+                .ForMember(dest => dest.Year, opt => opt.Ignore())
+                .ForMember(dest => dest.Month, opt => opt.Ignore())
+                .ForMember(dest => dest.Week, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.ModifiedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.Ignore())
+                .ForMember(dest => dest.IsActive, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
+
+            CreateMap<StudyGroup, StudyGroupDetailResultVM>();
+
+            CreateMap<StudyGroup, StudyGroupsListResultVM>();
+
+            CreateMap<PagedResult<StudyGroup>, PagedResult<StudyGroupsListResultVM>>();
+
+            /* End Study Group Mapping */
+
+
+            /* Start Study Group Submission Mapping */
+
+            CreateMap<AddStudyGroupSubmissionCommand, StudyGroupSubmission>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.StudyGroup, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.ModifiedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.Ignore())
+                .ForMember(dest => dest.IsActive, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
+
+            CreateMap<EditStudyGroupSubmissionCommand, StudyGroupSubmission>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(b => b.SubmissionId))
+                .ForMember(dest => dest.StudyGroup, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.ModifiedBy, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.Ignore())
+                .ForMember(dest => dest.IsActive, opt => opt.Ignore())
+                .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
+
+            CreateMap<StudyGroupSubmission, StudyGroupSubmissionDetailResultVM>()
+                .ForMember(dest => dest.MemberFullName, opt => opt.Ignore())
+                .ForMember(dest => dest.StudyGroup, opt => opt.MapFrom(src => new StudyGroupResultVM
+                {
+                    From = src.StudyGroup.From,
+                    To = src.StudyGroup.To,
+                    Year = src.StudyGroup.Year,
+                    Month = src.StudyGroup.Month,
+                    StudyGroupMaterial = src.StudyGroup.StudyGroupMaterial,
+                    StudyGroupQuestion = src.StudyGroup.StudyGroupQuestion,
+                    DeadlineDate = src.StudyGroup.DeadlineDate,
+                    AllowLateSubmission = src.StudyGroup.AllowLateSubmission
+                }));
+
+            CreateMap<StudyGroupSubmission, StudyGroupSubmissionsListResultVM>()
+                .ForMember(dest => dest.MemberFullName, opt => opt.Ignore())
+                .ForMember(dest => dest.StudyGroup, opt => opt.MapFrom(src => new StudyGroupResultVM
+                {
+                    From = src.StudyGroup.From,
+                    To = src.StudyGroup.To,
+                    Year = src.StudyGroup.Year,
+                    Month = src.StudyGroup.Month,
+                    StudyGroupMaterial = src.StudyGroup.StudyGroupMaterial,
+                    StudyGroupQuestion = src.StudyGroup.StudyGroupQuestion,
+                    DeadlineDate = src.StudyGroup.DeadlineDate,
+                    AllowLateSubmission = src.StudyGroup.AllowLateSubmission
+                }));
+
+            CreateMap<PagedResult<StudyGroupSubmission>, PagedResult<StudyGroupSubmissionsListResultVM>>();
+
+            /* End Study Group Submission Mapping */
         }
     }
 }

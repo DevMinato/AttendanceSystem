@@ -101,5 +101,8 @@ namespace AttendanceSystem.Persistence
         public DbSet<OutreachReport> OutreachReports { get; set; }
         public DbSet<OutreachDetail> OutreachDetails { get; set; }
         public DbSet<AttendanceReport> AttendanceReports { get; set; }
+        public DbSet<StudyGroup> StudyGroups { get; set; }
+        public DbSet<StudyGroupSubmission> StudyGroupSubmissions { get; set; }
+        public DbSet<Document> Documents { get; set; }
     }
 }

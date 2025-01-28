@@ -48,9 +48,9 @@ namespace AttendanceSystem.Application.Features.Fellowships.Queries.GetAllFellow
 
                 var result = _mapper.Map<PagedResult<FellowshipsListResultVM>>(pagedResult);
 
-                var pastords = pagedResult.Items.Select(x => x.PastorId).ToList();
+                var pastorIds = pagedResult.Items.Select(x => x.PastorId).ToList();
 
-                var pastors = await _pastorRepository.GetFilteredAsync(x => pastords.Contains(x.Id));
+                var pastors = await _pastorRepository.GetFilteredAsync(x => pastorIds.Contains(x.Id));
 
                 if (result.Items.Count > 0)
                 {

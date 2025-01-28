@@ -31,7 +31,9 @@ namespace AttendanceSystem.Application.Features.StudyGroup.Commands.Add
 
             RuleFor(x => x)
                 .MustAsync(IsUnique)
-                .WithMessage("Study group for this member already exist.");
+                .WithMessage("Study group for this member already exist.")
+                .MustAsync(HasDeadlinePassed)
+                .WithMessage("Deadline date for submission has passsed.");
         }
 
         private async Task<bool> IsUnique(AddStudyGroupSubmissionCommand command, CancellationToken cancellationToken)
@@ -41,6 +43,25 @@ namespace AttendanceSystem.Application.Features.StudyGroup.Commands.Add
                 var fellowship = await _studyGroupSubmissionRepository.GetSingleAsync(x => x.MemberId == command.MemberId && x.StudyGroupId == command.StudyGroupId);
                 if (fellowship == null)
                     return true;
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+                return false;
+            }
+        }
+
+        private async Task<bool> HasDeadlinePassed(AddStudyGroupSubmissionCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var studyGroup = await _studyGroupRepository.GetSingleAsync(x => x.Id == command.StudyGroupId && x.AllowLateSubmission == false);
+                if (studyGroup != null)
+                {
+                    if (DateTime.UtcNow > studyGroup.DeadlineDate) return true;
+                }
 
                 return false;
             }

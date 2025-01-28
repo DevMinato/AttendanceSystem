@@ -21,12 +21,12 @@ public class DocumentUpload : IDocumentUpload
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<(bool Status, ErrorResponse? ErrorResponse)> UploadDocuments(string pspId, List<DocumentRequest> documentRequests, string clientType)
+    public async Task<(bool Status, ErrorResponse? ErrorResponse)> UploadDocuments(string ownerId, List<DocumentRequest> documentRequests, string clientType)
     {
         List<Document> documents = [];
         foreach (var documentRequest in documentRequests)
         {
-            var existingDocument = await _documentRepository.GetSingleAsync(x => x.ClientId == pspId && x.DocumentType == documentRequest.DocumentType.DisplayName());
+            var existingDocument = await _documentRepository.GetSingleAsync(x => x.ClientId == ownerId && x.DocumentType == documentRequest.DocumentType.DisplayName());
             var response = await _documentManagerService.UploadDocument(documentRequest);
             if (response.ErrorResponse != null && response.ErrorResponse.Errors.Count > 0)
             {
@@ -38,7 +38,7 @@ public class DocumentUpload : IDocumentUpload
                 documents.Add(new()
                 {
                     FileName = response.Key,
-                    ClientId = pspId,
+                    ClientId = ownerId,
                     ClientType = clientType,
                     Id = Guid.NewGuid(),
                     DocumentType = documentRequest.DocumentType.DisplayName(),
