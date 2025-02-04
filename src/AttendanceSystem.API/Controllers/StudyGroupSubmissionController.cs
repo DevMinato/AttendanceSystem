@@ -1,8 +1,8 @@
 ﻿using AttendanceSystem.Application.Features.StudyGroup.Commands.Add;
 using AttendanceSystem.Application.Features.StudyGroup.Commands.Delete;
 using AttendanceSystem.Application.Features.StudyGroup.Commands.Edit;
-using AttendanceSystem.Application.Features.StudyGroup.Queries.Get;
 using AttendanceSystem.Application.Features.StudyGroup.Queries.GetAll;
+using AttendanceSystem.Application.Features.StudyGroup.Queries.GetSingle;
 using AttendanceSystem.Application.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

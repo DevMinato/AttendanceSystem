@@ -1,4 +1,4 @@
-﻿namespace AttendanceSystem.Application.Features.StudyGroup.Queries.Get
+﻿namespace AttendanceSystem.Application.Features.StudyGroup.Queries.GetSingle
 {
     public class StudyGroupSubmissionDetailResultVM
     {

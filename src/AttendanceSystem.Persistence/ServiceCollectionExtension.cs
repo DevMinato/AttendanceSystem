@@ -1,4 +1,5 @@
-﻿using AttendanceSystem.Application.Contracts.Persistence;
+﻿using AttendanceSystem.Application.Contracts.Infrastructure;
+using AttendanceSystem.Application.Contracts.Persistence;
 using AttendanceSystem.Application.Utilities;
 using AttendanceSystem.Domain.Entities;
 using AttendanceSystem.Persistence.Repositories;
@@ -24,6 +25,7 @@ namespace AttendanceSystem.Persistence
             services.AddScoped<IPasswordHasher<Member>, PasswordHasher<Member>>();
             services.AddScoped<IPasswordHasher<Pastor>, PasswordHasher<Pastor>>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IReportRepository, ReportRepository>();
             return services;
         }
 

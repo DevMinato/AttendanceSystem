@@ -1,4 +1,5 @@
 ﻿using AttendanceSystem.Application.Contracts.Persistence;
+using AttendanceSystem.Application.Features.StudyGroup.Commands.Add;
 using AttendanceSystem.Domain.Entities;
 using FluentValidation;
 
@@ -8,10 +9,12 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Crea
     {
         private readonly IAsyncRepository<Member> _memberRepository;
         private readonly IAsyncRepository<Activity> _activityRepository;
-        public CreateAttendanceCommandValidator(IAsyncRepository<Member> memberRepository, IAsyncRepository<Activity> activityRepository)
+        private readonly IAsyncRepository<AttendanceReport> _attendanceReportRepository;
+        public CreateAttendanceCommandValidator(IAsyncRepository<Member> memberRepository, IAsyncRepository<Activity> activityRepository, IAsyncRepository<AttendanceReport> attendanceReportRepository)
         {
             _memberRepository = memberRepository;
             _activityRepository = activityRepository;
+            _attendanceReportRepository = attendanceReportRepository;
 
             RuleFor(x => x.MemberId).Cascade(CascadeMode.Stop)
                 .NotEmpty()
@@ -26,6 +29,10 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Crea
                 .WithMessage("Activity identifier is required")
                 .Must(x => BeValidActivity(x.Value).Result)
                 .WithMessage("Activity identifier is not valid.");
+
+            RuleFor(x => x)
+                .MustAsync(HasMarkedAttendance)
+                .WithMessage("Member has marked attendance.");
         }
 
         private async Task<bool> BeValidMemberId(Guid id)
@@ -42,6 +49,25 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Crea
             if (count == 0)
                 return false;
             return true;
+        }
+
+        private async Task<bool> HasMarkedAttendance(CreateAttendanceCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var attendance = await _attendanceReportRepository.GetSingleAsync(x => x.MemberId == command.MemberId && x.CreatedAt.Date == DateTime.UtcNow.Date);
+                if (attendance == null)
+                {
+                   return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+                return false;
+            }
         }
     }
 }

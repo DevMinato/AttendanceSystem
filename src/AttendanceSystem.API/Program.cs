@@ -3,7 +3,7 @@ using AttendanceSystem.API.Middleware;
 using AttendanceSystem.Application;
 using AttendanceSystem.Application.Models;
 using AttendanceSystem.Persistence;
-using Microsoft.Extensions.Configuration;
+using AttendanceSystem.Infrastructure;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
@@ -17,7 +17,7 @@ namespace AttendanceSystem.API
 
             // Add services to the container.
             builder.Services.AddApplicationServices();
-            //builder.Services.AddInfrastructureServices(builder.Configuration);
+            builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddIdentityServices(builder.Configuration);
             builder.Services.AddPersistenceServices(builder.Configuration);
 

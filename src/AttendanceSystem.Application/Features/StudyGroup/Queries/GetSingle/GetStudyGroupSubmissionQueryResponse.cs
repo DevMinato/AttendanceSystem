@@ -1,6 +1,6 @@
 ﻿using AttendanceSystem.Application.Responses;
 
-namespace AttendanceSystem.Application.Features.StudyGroup.Queries.Get
+namespace AttendanceSystem.Application.Features.StudyGroup.Queries.GetSingle
 {
     public class GetStudyGroupSubmissionQueryResponse : BaseResponse
     {

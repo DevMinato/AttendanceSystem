@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
-namespace AttendanceSystem.Application.Features.StudyGroup.Queries.Get
+namespace AttendanceSystem.Application.Features.StudyGroup.Queries.GetSingle
 {
     public class GetStudyGroupSubmissionQueryHandler : IRequestHandler<GetStudyGroupSubmissionQuery, GetStudyGroupSubmissionQueryResponse>
     {
@@ -14,7 +14,7 @@ namespace AttendanceSystem.Application.Features.StudyGroup.Queries.Get
         private readonly IAsyncRepository<StudyGroupSubmission> _studyGroupSubmissionRepository;
         private readonly IAsyncRepository<Member> _memberRepository;
         private readonly IMapper _mapper;
-        public GetStudyGroupSubmissionQueryHandler(ILogger<GetStudyGroupSubmissionQueryHandler> logger, IAsyncRepository<StudyGroupSubmission> studyGroupSubmissionRepository, 
+        public GetStudyGroupSubmissionQueryHandler(ILogger<GetStudyGroupSubmissionQueryHandler> logger, IAsyncRepository<StudyGroupSubmission> studyGroupSubmissionRepository,
             IMapper mapper, IAsyncRepository<Member> memberRepository)
         {
             _logger = logger;

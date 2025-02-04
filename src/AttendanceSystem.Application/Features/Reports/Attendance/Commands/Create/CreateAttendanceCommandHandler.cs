@@ -30,7 +30,7 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Crea
             var response = new BaseResponse();
             try
             {
-                var validator = new CreateAttendanceCommandValidator(_memberRepository, _activityRepository);
+                var validator = new CreateAttendanceCommandValidator(_memberRepository, _activityRepository, _attendanceReportRepository);
                 var validationResult = await validator.ValidateAsync(request);
                 if (validationResult.Errors.Count > 0)
                     throw new ValidationException(validationResult);

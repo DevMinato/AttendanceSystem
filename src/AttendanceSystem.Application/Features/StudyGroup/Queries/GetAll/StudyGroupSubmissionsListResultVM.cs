@@ -1,4 +1,4 @@
-﻿using AttendanceSystem.Application.Features.StudyGroup.Queries.Get;
+﻿using AttendanceSystem.Application.Features.StudyGroup.Queries.GetSingle;
 
 namespace AttendanceSystem.Application.Features.StudyGroup.Queries.GetAll
 {
