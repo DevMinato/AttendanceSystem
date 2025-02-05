@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Net;
 using System.Text;
 using System.Text.Json;
 
@@ -26,6 +25,7 @@ namespace AttendanceSystem.Persistence
             services.AddScoped<IPasswordHasher<Pastor>, PasswordHasher<Pastor>>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IReportRepository, ReportRepository>();
+            services.AddTransient<IAttendanceStatisticsRepository, AttendanceStatisticsRepository>();
             return services;
         }
 

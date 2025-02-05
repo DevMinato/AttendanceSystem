@@ -38,8 +38,6 @@ namespace AttendanceSystem.Application.Features.Reports.Outreach.Commands.Delete
 
                 _unitOfWork.BeginTransaction();
 
-                _unitOfWork.OutreachReportRepository.Update(report);
-
                 foreach (var detail in report.OutreachDetails)
                 {
                     detail.IsDeleted = true;
@@ -47,7 +45,7 @@ namespace AttendanceSystem.Application.Features.Reports.Outreach.Commands.Delete
                 }
 
                 report.IsDeleted = true;
-                await _outreachReportRepository.UpdateAsync(report);
+                _unitOfWork.OutreachReportRepository.Update(report);
 
                 _unitOfWork.Commit();
                 _unitOfWork.Dispose();

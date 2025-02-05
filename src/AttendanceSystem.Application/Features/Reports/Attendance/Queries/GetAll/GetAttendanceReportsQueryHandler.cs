@@ -32,6 +32,11 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Queries.GetAl
                     filter = filter.And(c => c.MemberId == request.MemberId.Value);
                 }
 
+                if (request.ActivityId.HasValue)
+                {
+                    filter = filter.And(c => c.ActivityId == request.ActivityId.Value);
+                }
+
                 if (request.StartDate.HasValue)
                 {
                     filter = filter.And(c => c.CreatedAt >= request.StartDate.Value);
