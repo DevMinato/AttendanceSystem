@@ -33,6 +33,7 @@ namespace AttendanceSystem.Application.Features.StandardReports.Queries.Exports.
         public async Task<AttendanceReportExportFileVm> Handle(GenerateAttendanceReportQuery request, CancellationToken cancellationToken)
         {
             var exportFileDto = new AttendanceReportExportFileVm();
+            List<Guid> activityIds = new List<Guid>();
 
             try
             {
@@ -45,7 +46,15 @@ namespace AttendanceSystem.Application.Features.StandardReports.Queries.Exports.
                     if (!request.EndDate.HasValue)
                         request.EndDate = DateTime.Now;
 
-                    var reports = await _reportRepository.FetchAttendanceData(request.StartDate.Value, request.EndDate.Value, request.ActivityId);
+                    if (!string.IsNullOrEmpty(request.ActivityIds))
+                    {
+                        activityIds = request.ActivityIds
+                            .Split(',')
+                            .Select(Guid.Parse)
+                            .ToList();
+                    }
+
+                    var reports = await _reportRepository.FetchAttendanceData(request.StartDate.Value, request.EndDate.Value, activityIds);
 
                     exportFileDto = await GetExportRecord(reports, request.ExportType);
                 }

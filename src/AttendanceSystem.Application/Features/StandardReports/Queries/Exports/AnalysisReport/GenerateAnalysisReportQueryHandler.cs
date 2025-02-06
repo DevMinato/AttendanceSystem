@@ -40,6 +40,7 @@ namespace AttendanceSystem.Application.Features.StandardReports.Queries.Exports.
             var exportFileDto = new AnalysisReportExportFileVm();
             string fellowshipName = string.Empty;
             Guid? fellowshipId = Guid.Empty;
+            List<Guid> activityIds = new List<Guid>();
 
             try
             {
@@ -62,7 +63,15 @@ namespace AttendanceSystem.Application.Features.StandardReports.Queries.Exports.
                         fellowshipName = _userService?.UserDetails()?.GroupName ?? string.Empty;
                     }
 
-                    var reports = await _reportRepository.FetchMonthlyAttendanceReportAsync(request.StartDate.Value, request.EndDate.Value, fellowshipId);
+                    if (!string.IsNullOrEmpty(request.ActivityIds))
+                    {
+                        activityIds = request.ActivityIds
+                            .Split(',')
+                            .Select(Guid.Parse)
+                            .ToList();
+                    }
+
+                    var reports = await _reportRepository.FetchMonthlyAttendanceReportAsync(request.StartDate.Value, request.EndDate.Value, fellowshipId, activityIds);
 
                     exportFileDto = await GetExportRecord(request.StartDate.Value, request.EndDate.Value, fellowshipName, request.Period.DisplayName(), reports, request.ExportType);
                 }

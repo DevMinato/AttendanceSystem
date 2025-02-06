@@ -2,8 +2,6 @@
 using AttendanceSystem.Application.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using System.Data;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace AttendanceSystem.Persistence.Repositories
 {
@@ -16,50 +14,51 @@ namespace AttendanceSystem.Persistence.Repositories
             _configuration = configuration;
             _connectionString = _configuration.GetConnectionString("AppConnectionString");
         }
-        public async Task<List<AttendanceReportViewModel>> FetchAttendanceData(DateTime startDate, DateTime endDate, Guid? activityId)
+        public async Task<List<AttendanceReportViewModel>> FetchAttendanceData(DateTime startDate, DateTime endDate, List<Guid>? activityIds)
         {
             string query = @"
-                WITH DateRange AS (
-                    -- Ensure @StartDate is cast to DATE to match recursive part
-                    SELECT CAST(@StartDate AS DATE) AS Date
-                    UNION ALL
-                    SELECT DATEADD(DAY, 1, Date) 
-                    FROM DateRange 
-                    WHERE Date < @EndDate
-                ),
-                WeeklyGroups AS (
-                    SELECT 
-                        DATEADD(DAY, -(DATEPART(WEEKDAY, Date) - 2), Date) AS WeekStart,
-                        DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) - 2), Date) AS WeekEnd
-                    FROM DateRange
-                    GROUP BY 
-                        DATEADD(DAY, -(DATEPART(WEEKDAY, Date) - 2), Date),
-                        DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) - 2), Date)  -- Include WeekEnd in GROUP BY
-                )
+            WITH DateRange AS (
+                -- Ensure @StartDate is cast to DATE to match recursive part
+                SELECT CAST(@StartDate AS DATE) AS Date
+                UNION ALL
+                SELECT DATEADD(DAY, 1, Date) 
+                FROM DateRange 
+                WHERE Date < @EndDate
+            ),
+            WeeklyGroups AS (
                 SELECT 
-                    m.FirstName + ' ' + m.LastName AS MemberName,
-                    w.WeekStart, 
-                    w.WeekEnd,
-                    a.Id AS ActivityId,
-                    a.Name AS ActivityName,
-                    COALESCE(ar.IsPresent, 0) AS Attendance
-                FROM [wt-db].[RS].Members m
-                CROSS JOIN WeeklyGroups w
-                CROSS JOIN [wt-db].[RS].Activities a  -- Ensures all members are listed for all activities
-                LEFT JOIN [wt-db].[RS].AttendanceReports ar 
-                    ON ar.MemberId = m.Id 
-                    AND ar.ActivityId = a.Id
-                    AND ar.Date BETWEEN w.WeekStart AND w.WeekEnd
-                WHERE (@ActivityId IS NULL OR a.Id = @ActivityId) -- Apply filter if activityId is provided
-                ";
+                    DATEADD(DAY, -(DATEPART(WEEKDAY, Date) - 2), Date) AS WeekStart,
+                    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) - 2), Date) AS WeekEnd
+                FROM DateRange
+                GROUP BY 
+                    DATEADD(DAY, -(DATEPART(WEEKDAY, Date) - 2), Date),
+                    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) - 2), Date)  -- Include WeekEnd in GROUP BY
+            )
+            SELECT 
+                m.FirstName + ' ' + m.LastName AS MemberName,
+                w.WeekStart, 
+                w.WeekEnd,
+                a.Id AS ActivityId,
+                a.Name AS ActivityName,
+                COALESCE(ar.IsPresent, 0) AS Attendance
+            FROM [wt-db].[RS].Members m
+            CROSS JOIN WeeklyGroups w
+            CROSS JOIN [wt-db].[RS].Activities a  -- Ensures all members are listed for all activities
+            LEFT JOIN [wt-db].[RS].AttendanceReports ar 
+                ON ar.MemberId = m.Id 
+                AND ar.ActivityId = a.Id
+                AND ar.Date BETWEEN w.WeekStart AND w.WeekEnd
+            WHERE (@activityIds IS NULL OR ar.ActivityId IN (SELECT value FROM STRING_SPLIT(@activityIds, ','))) -- Apply filter if activityId is provided
+            ";
 
 
-            var parameters = new List<SqlParameter>
+            /*var parameters = new List<SqlParameter>
             {
                 new SqlParameter("@StartDate", SqlDbType.DateTime) { Value = startDate },
                 new SqlParameter("@EndDate", SqlDbType.DateTime) { Value = endDate },
                 new SqlParameter("@ActivityId", SqlDbType.UniqueIdentifier) { Value = (object?)activityId ?? DBNull.Value }
-            };
+                
+            };*/
 
             /*if (activityId.HasValue)
             {
@@ -80,7 +79,11 @@ namespace AttendanceSystem.Persistence.Repositories
 
                 using (var command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddRange(parameters.ToArray());
+                    //command.Parameters.AddRange(parameters.ToArray());
+                    command.Parameters.AddWithValue("@StartDate", startDate);
+                    command.Parameters.AddWithValue("@EndDate", endDate);
+                    command.Parameters.AddWithValue("@activityIds", activityIds != null && activityIds.Any() ? string.Join(",", activityIds) : DBNull.Value);
+
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
@@ -101,7 +104,7 @@ namespace AttendanceSystem.Persistence.Repositories
             return attendanceRecords;
         }
 
-        public async Task<List<MonthlyAttendanceReportViewModel>> FetchMonthlyAttendanceReportAsync(DateTime startDate, DateTime endDate, Guid? fellowshipId)
+        public async Task<List<MonthlyAttendanceReportViewModel>> FetchMonthlyAttendanceReportAsync(DateTime startDate, DateTime endDate, Guid? fellowshipId, List<Guid>? activityIds)
         {
             var query = @"
             WITH ActivityFrequency AS (
@@ -121,6 +124,7 @@ namespace AttendanceSystem.Persistence.Repositories
                 JOIN RS.Members m ON ar.MemberId = m.Id
                 WHERE ar.Date BETWEEN @startDate AND @endDate
                     AND (@fellowshipId IS NULL OR m.FellowshipId = @fellowshipId)
+                    AND (@activityIds IS NULL OR ar.ActivityId IN (SELECT value FROM STRING_SPLIT(@activityIds, ',')))
                 GROUP BY ar.ActivityId, ar.MemberId
             )
             SELECT 
@@ -150,6 +154,7 @@ namespace AttendanceSystem.Persistence.Repositories
                     command.Parameters.AddWithValue("@startDate", startDate);
                     command.Parameters.AddWithValue("@endDate", endDate);
                     command.Parameters.AddWithValue("@fellowshipId", (object?)fellowshipId ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@activityIds", activityIds != null && activityIds.Any() ? string.Join(",", activityIds) : DBNull.Value);
 
                     using (var reader = await command.ExecuteReaderAsync())
                     {
