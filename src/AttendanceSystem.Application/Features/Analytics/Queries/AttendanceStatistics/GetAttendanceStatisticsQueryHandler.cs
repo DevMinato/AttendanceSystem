@@ -30,6 +30,7 @@ namespace AttendanceSystem.Application.Features.Analytics.Queries.AttendanceStat
         public async Task<GetAttendanceStatisticsQueryResponse> Handle(GetAttendanceStatisticsQuery request, CancellationToken cancellationToken)
         {
             var response = new GetAttendanceStatisticsQueryResponse();
+            List<Guid> activityIds = new List<Guid>();
 
             try
             {
@@ -45,8 +46,16 @@ namespace AttendanceSystem.Application.Features.Analytics.Queries.AttendanceStat
                 else if (_userService?.UserDetails()?.UserType == MemberType.Pastor.DisplayName())
                     request.FellowshipId = _userService.UserDetails().GroupId;
 
+                if (!string.IsNullOrEmpty(request.ActivityIds))
+                {
+                    activityIds = request.ActivityIds
+                        .Split(',')
+                        .Select(Guid.Parse)
+                        .ToList();
+                }
+
                 var result = await _attendanceStatisticsRepository.GetAttendanceStatisticsAsync(
-                    request.StartDate.Value, request.EndDate.Value, request.FellowshipId, request.ActivityId, request.MemberId);
+                    request.StartDate.Value, request.EndDate.Value, request.FellowshipId, activityIds, request.MemberId);
 
                 response.Result = result;
                 response.Success = true;

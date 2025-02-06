@@ -15,7 +15,7 @@ namespace AttendanceSystem.Persistence.Repositories
             _connectionString = _configuration.GetConnectionString("AppConnectionString");
         }
         public async Task<List<AttendanceStatisticsViewModel>> GetAttendanceStatisticsAsync(DateTime startDate, DateTime endDate, Guid? fellowshipId, 
-            Guid? activityId, Guid? memberId)
+            List<Guid>? activityIds, Guid? memberId)
         {
             var query = @"
             SELECT 
@@ -25,7 +25,7 @@ namespace AttendanceSystem.Persistence.Repositories
             JOIN RS.Activities a ON ar.ActivityId = a.Id
             WHERE ar.Date BETWEEN @startDate AND @endDate
                 AND (@fellowshipId IS NULL OR ar.MemberId IN (SELECT Id FROM RS.Members WHERE FellowshipId = @fellowshipId))
-                AND (@activityId IS NULL OR ar.ActivityId = @activityId)
+                AND (@activityIds IS NULL OR ar.ActivityId IN (SELECT value FROM STRING_SPLIT(@activityIds, ',')))
                 AND (@memberId IS NULL OR ar.MemberId = @memberId)
             GROUP BY a.Name
             ORDER BY a.Name;";
@@ -40,7 +40,7 @@ namespace AttendanceSystem.Persistence.Repositories
                     command.Parameters.AddWithValue("@startDate", startDate);
                     command.Parameters.AddWithValue("@endDate", endDate);
                     command.Parameters.AddWithValue("@fellowshipId", (object?)fellowshipId ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@activityId", (object?)activityId ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@activityIds", activityIds != null && activityIds.Any() ? string.Join(",", activityIds) : DBNull.Value);
                     command.Parameters.AddWithValue("@memberId", (object?)memberId ?? DBNull.Value);
 
                     using (var reader = await command.ExecuteReaderAsync())

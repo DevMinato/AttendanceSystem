@@ -28,6 +28,8 @@ using AttendanceSystem.Application.Features.Setups.StudyGroup.Commands.Add;
 using AttendanceSystem.Application.Features.Setups.StudyGroup.Commands.Edit;
 using AttendanceSystem.Application.Features.Setups.StudyGroup.Queries.GetAllStudyGroups;
 using AttendanceSystem.Application.Features.Setups.StudyGroup.Queries.GetStudyGroup;
+using AttendanceSystem.Application.Features.StandardReports.Queries.AnalysisReport;
+using AttendanceSystem.Application.Features.StandardReports.Queries.AttendanceReport;
 using AttendanceSystem.Application.Features.StudyGroup.Commands.Add;
 using AttendanceSystem.Application.Features.StudyGroup.Commands.Edit;
 using AttendanceSystem.Application.Features.StudyGroup.Queries.GetAll;
@@ -42,6 +44,9 @@ namespace AttendanceSystem.Application.Profiles
     {
         public MappingProfile()
         {
+            CreateMap<AttendanceReportViewModel, AttendanceReportResultVM>();
+            CreateMap<MonthlyAttendanceReportViewModel, AnalysisReportResultVM>();
+
             CreateMap<AttendanceReportViewModel, AttendanceReportExportDto>();
 
             CreateMap<Activity, ActivityDetailResultVM>();

@@ -53,7 +53,7 @@ namespace AttendanceSystem.Application.Features.Setups.StudyGroup.Queries.GetAll
             catch (HttpRequestException ex)
             {
                 _logger.LogError(ex.ToString() + "{Microservice}", Constants.Microservice);
-                response.Message = $"Error completing fellowship querying request.";
+                response.Message = $"Error completing study group querying request.";
             }
             catch (CustomException ex)
             {

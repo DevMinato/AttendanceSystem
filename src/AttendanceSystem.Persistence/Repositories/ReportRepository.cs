@@ -18,7 +18,7 @@ namespace AttendanceSystem.Persistence.Repositories
         {
             string query = @"
             WITH DateRange AS (
-                -- Ensure @StartDate is cast to DATE to match recursive part
+                -- Generate all dates from StartDate to EndDate
                 SELECT CAST(@StartDate AS DATE) AS Date
                 UNION ALL
                 SELECT DATEADD(DAY, 1, Date) 
@@ -26,13 +26,14 @@ namespace AttendanceSystem.Persistence.Repositories
                 WHERE Date < @EndDate
             ),
             WeeklyGroups AS (
+                -- Compute weekly ranges (Monday to Sunday)
                 SELECT 
                     DATEADD(DAY, -(DATEPART(WEEKDAY, Date) - 2), Date) AS WeekStart,
                     DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) - 2), Date) AS WeekEnd
                 FROM DateRange
                 GROUP BY 
                     DATEADD(DAY, -(DATEPART(WEEKDAY, Date) - 2), Date),
-                    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) - 2), Date)  -- Include WeekEnd in GROUP BY
+                    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) - 2), Date)  
             )
             SELECT 
                 m.FirstName + ' ' + m.LastName AS MemberName,
@@ -40,16 +41,17 @@ namespace AttendanceSystem.Persistence.Repositories
                 w.WeekEnd,
                 a.Id AS ActivityId,
                 a.Name AS ActivityName,
-                COALESCE(ar.IsPresent, 0) AS Attendance
+                COALESCE(ar.IsPresent, 0) AS Attendance  -- 🟢 Mark absent (0) if no attendance exists
             FROM [wt-db].[RS].Members m
             CROSS JOIN WeeklyGroups w
-            CROSS JOIN [wt-db].[RS].Activities a  -- Ensures all members are listed for all activities
+            CROSS JOIN [wt-db].[RS].Activities a  -- 🟢 Ensures all activities are considered for all members
             LEFT JOIN [wt-db].[RS].AttendanceReports ar 
                 ON ar.MemberId = m.Id 
                 AND ar.ActivityId = a.Id
                 AND ar.Date BETWEEN w.WeekStart AND w.WeekEnd
-            WHERE (@activityIds IS NULL OR ar.ActivityId IN (SELECT value FROM STRING_SPLIT(@activityIds, ','))) -- Apply filter if activityId is provided
-            ";
+            WHERE 
+                (@activityIds IS NULL OR a.Id IN (SELECT value FROM STRING_SPLIT(@activityIds, ',')))  -- 🟢 Filter for selected activities
+            ORDER BY MemberName, w.WeekStart, a.Name;";
 
 
             /*var parameters = new List<SqlParameter>
@@ -65,10 +67,10 @@ namespace AttendanceSystem.Persistence.Repositories
                 parameters.Add(new SqlParameter("@ActivityId", SqlDbType.UniqueIdentifier) { Value = activityId.Value });
             }*/
 
-            query += @"            
+            /*query += @"            
             ORDER BY
                w.WeekStart, MemberName, a.Name
-            OPTION (MAXRECURSION 0);";
+            OPTION (MAXRECURSION 0);";*/
 
             List<AttendanceReportViewModel> attendanceRecords = new List<AttendanceReportViewModel>();
 
