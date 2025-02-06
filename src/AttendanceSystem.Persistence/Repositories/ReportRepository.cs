@@ -100,5 +100,78 @@ namespace AttendanceSystem.Persistence.Repositories
 
             return attendanceRecords;
         }
+
+        public async Task<List<MonthlyAttendanceReportViewModel>> FetchMonthlyAttendanceReportAsync(DateTime startDate, DateTime endDate, Guid? fellowshipId)
+        {
+            var query = @"
+            WITH ActivityFrequency AS (
+                SELECT 
+                    ar.ActivityId, 
+                    COUNT(DISTINCT ar.Date) AS Frequency
+                FROM RS.AttendanceReports ar
+                WHERE ar.Date BETWEEN @startDate AND @endDate
+                GROUP BY ar.ActivityId
+            ),
+            MemberAttendance AS (
+                SELECT 
+                    ar.ActivityId,
+                    ar.MemberId,
+                    COUNT(DISTINCT ar.Date) AS AttendanceCount
+                FROM RS.AttendanceReports ar
+                JOIN RS.Members m ON ar.MemberId = m.Id
+                WHERE ar.Date BETWEEN @startDate AND @endDate
+                    AND (@fellowshipId IS NULL OR m.FellowshipId = @fellowshipId)
+                GROUP BY ar.ActivityId, ar.MemberId
+            )
+            SELECT 
+                a.Name AS Activity,
+                af.Frequency AS Frequency,
+                COUNT(DISTINCT ma.MemberId) AS TotalAttendees,
+                COUNT(CASE WHEN ma.AttendanceCount = af.Frequency THEN 1 END) AS Count_100_Percent,
+                COUNT(CASE WHEN ma.AttendanceCount >= 0.75 * af.Frequency AND ma.AttendanceCount < af.Frequency THEN 1 END) AS Count_75_Percent,
+                COUNT(CASE WHEN ma.AttendanceCount >= 0.5 * af.Frequency AND ma.AttendanceCount < 0.75 * af.Frequency THEN 1 END) AS Count_50_Percent,
+                COUNT(CASE WHEN ma.AttendanceCount < 0.5 * af.Frequency THEN 1 END) AS Count_Below_50_Percent,
+                COUNT(DISTINCT m.DisciplerId) AS MembersWithDisciples
+            FROM MemberAttendance ma
+            JOIN ActivityFrequency af ON ma.ActivityId = af.ActivityId
+            JOIN RS.Activities a ON ma.ActivityId = a.Id
+            JOIN RS.Members m ON ma.MemberId = m.Id
+            WHERE (@fellowshipId IS NULL OR m.FellowshipId = @fellowshipId)
+            GROUP BY a.Name, af.Frequency
+            ORDER BY a.Name;";
+
+            var report = new List<MonthlyAttendanceReportViewModel>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@startDate", startDate);
+                    command.Parameters.AddWithValue("@endDate", endDate);
+                    command.Parameters.AddWithValue("@fellowshipId", (object?)fellowshipId ?? DBNull.Value);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            report.Add(new MonthlyAttendanceReportViewModel
+                            {
+                                Activity = reader.GetString(0),
+                                Frequency = reader.GetInt32(1),
+                                TotalAttendees = reader.GetInt32(2),
+                                Count100 = reader.GetInt32(3),
+                                Count75 = reader.GetInt32(4),
+                                Count50 = reader.GetInt32(5),
+                                CountBelow50 = reader.GetInt32(6),
+                                MembersWithDisciples = reader.GetInt32(7)
+                            });
+                        }
+                    }
+                }
+            }
+
+            return report;
+        }
     }
 }

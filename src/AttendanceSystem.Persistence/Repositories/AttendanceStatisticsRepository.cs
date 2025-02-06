@@ -59,5 +59,6 @@ namespace AttendanceSystem.Persistence.Repositories
 
             return statistics;
         }
+
     }
 }

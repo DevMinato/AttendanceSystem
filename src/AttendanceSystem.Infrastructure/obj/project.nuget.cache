@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qFwBuDe3VRQ=",
+  "dgSpecHash": "MaQ3yLfxXyM=",
   "success": true,
   "projectFilePath": "C:\\Users\\ayodeji.bolanle\\OneDrive - NLPC PFA\\Documents\\ORCHESTRA\\code_Repository\\AttendanceSystem\\src\\AttendanceSystem.Infrastructure\\AttendanceSystem.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,8 @@
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\awssdk.core\\3.7.401.4\\awssdk.core.3.7.401.4.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\awssdk.s3\\3.7.412.4\\awssdk.s3.3.7.412.4.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\bouncycastle.cryptography\\2.3.1\\bouncycastle.cryptography.2.3.1.nupkg.sha512",
+    "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\documentformat.openxml\\3.2.0\\documentformat.openxml.3.2.0.nupkg.sha512",
+    "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\documentformat.openxml.framework\\3.2.0\\documentformat.openxml.framework.3.2.0.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\enums.net\\4.0.1\\enums.net.4.0.1.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\extendednumerics.bigdecimal\\2025.1001.2.129\\extendednumerics.bigdecimal.2025.1001.2.129.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\fluentvalidation\\11.9.2\\fluentvalidation.11.9.2.nupkg.sha512",
@@ -41,6 +43,7 @@
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\sixlabors.fonts\\1.0.1\\sixlabors.fonts.1.0.1.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\sixlabors.imagesharp\\2.1.9\\sixlabors.imagesharp.2.1.9.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\system.identitymodel.tokens.jwt\\7.1.2\\system.identitymodel.tokens.jwt.7.1.2.nupkg.sha512",
+    "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\system.io.packaging\\8.0.1\\system.io.packaging.8.0.1.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\system.security.cryptography.pkcs\\8.0.1\\system.security.cryptography.pkcs.8.0.1.nupkg.sha512",

@@ -6,6 +6,7 @@
         public const string ExportTypeCsv = "csv";
         public const string ExportTypeExcel = "excel";
         public const string ExportTypePdf = "pdf";
+        public const string ExportTypeWord = "word";
 
         public const string SuccessResponse = "Completed successfully";
         public const string ErrorResponse = "System error. Please contact support if this persists.";

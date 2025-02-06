@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9melUQJ+5Ho=",
+  "dgSpecHash": "r1FjakXK1ZU=",
   "success": true,
   "projectFilePath": "C:\\Users\\ayodeji.bolanle\\OneDrive - NLPC PFA\\Documents\\ORCHESTRA\\code_Repository\\AttendanceSystem\\src\\AttendanceSystem.API\\AttendanceSystem.API.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,8 @@
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\bouncycastle.cryptography\\2.3.1\\bouncycastle.cryptography.2.3.1.nupkg.sha512",
+    "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\documentformat.openxml\\3.2.0\\documentformat.openxml.3.2.0.nupkg.sha512",
+    "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\documentformat.openxml.framework\\3.2.0\\documentformat.openxml.framework.3.2.0.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\enums.net\\4.0.1\\enums.net.4.0.1.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\extendednumerics.bigdecimal\\2025.1001.2.129\\extendednumerics.bigdecimal.2025.1001.2.129.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\fluentvalidation\\11.9.2\\fluentvalidation.11.9.2.nupkg.sha512",
@@ -103,6 +105,7 @@
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\system.formats.asn1\\5.0.0\\system.formats.asn1.5.0.0.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\system.identitymodel.tokens.jwt\\7.1.2\\system.identitymodel.tokens.jwt.7.1.2.nupkg.sha512",
+    "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\system.io.packaging\\8.0.1\\system.io.packaging.8.0.1.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\system.io.pipelines\\6.0.3\\system.io.pipelines.6.0.3.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\ayodeji.bolanle\\.nuget\\packages\\system.memory.data\\1.0.2\\system.memory.data.1.0.2.nupkg.sha512",

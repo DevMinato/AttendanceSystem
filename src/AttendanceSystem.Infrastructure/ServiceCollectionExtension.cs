@@ -11,6 +11,7 @@ namespace AttendanceSystem.Infrastructure
         {
             services.AddTransient<IExcelExporter, ExcelExporter>();
             services.AddTransient<IPdfExporter, PdfExporter>();
+            services.AddTransient<IWordExporter, WordExporter>();
 
             return services;
         }

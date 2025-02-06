@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="FileExport\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.2.0" />
     <PackageReference Include="NPOI" Version="2.7.2" />
   </ItemGroup>
 
