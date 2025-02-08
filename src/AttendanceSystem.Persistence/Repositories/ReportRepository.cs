@@ -26,14 +26,33 @@ namespace AttendanceSystem.Persistence.Repositories
                 WHERE Date < @EndDate
             ),
             WeeklyGroups AS (
-                -- Compute weekly ranges (Monday to Sunday)
+                -- Compute weekly ranges (Monday to Sunday) and determine the ""majority"" month
                 SELECT 
                     DATEADD(DAY, -(DATEPART(WEEKDAY, Date) - 2), Date) AS WeekStart,
-                    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) - 2), Date) AS WeekEnd
+                    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) - 2), Date) AS WeekEnd,
+        
+                    -- 🟢 Determine the month that has the majority of days in the week
+                    DATEPART(YEAR, DATEADD(DAY, 3, Date)) AS Year, 
+                    DATEPART(MONTH, DATEADD(DAY, 3, Date)) AS Month  
+        
                 FROM DateRange
                 GROUP BY 
                     DATEADD(DAY, -(DATEPART(WEEKDAY, Date) - 2), Date),
-                    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) - 2), Date)  
+                    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) - 2), Date),
+                    DATEADD(DAY, 3, Date) -- 🟢 Use the middle of the week to determine the correct month
+            ),
+            MonthlyAttendance AS (
+                -- Compute attendance for each month separately
+                SELECT 
+                    ar.MemberId, 
+                    ar.ActivityId,
+                    DATEPART(YEAR, ar.Date) AS Year,
+                    DATEPART(MONTH, ar.Date) AS Month,
+                    COUNT(CASE WHEN ar.IsPresent = 1 THEN 1 END) AS MonthlyTotalPresent,
+                    COUNT(DISTINCT ar.Date) AS MonthlyTotalSessions
+                FROM [wt-db].[RS].AttendanceReports ar
+                WHERE ar.Date BETWEEN @StartDate AND @EndDate
+                GROUP BY ar.MemberId, ar.ActivityId, DATEPART(YEAR, ar.Date), DATEPART(MONTH, ar.Date)
             )
             SELECT 
                 m.FirstName + ' ' + m.LastName AS MemberName,
@@ -41,17 +60,33 @@ namespace AttendanceSystem.Persistence.Repositories
                 w.WeekEnd,
                 a.Id AS ActivityId,
                 a.Name AS ActivityName,
-                COALESCE(ar.IsPresent, 0) AS Attendance  -- 🟢 Mark absent (0) if no attendance exists
+                w.Year, -- 🟢 The corrected Year for each week
+                w.Month, -- 🟢 The corrected Month for each week
+                COALESCE(ar.IsPresent, 0) AS Attendance,  -- 🟢 Marks absent as (0)
+    
+                -- 🟢 Monthly Attendance Summary for Each Month
+                COALESCE(ma.MonthlyTotalPresent, 0) AS MonthlyTotalPresent, 
+                COALESCE(ma.MonthlyTotalSessions, 1) AS MonthlyTotalSessions, 
+                CAST(
+                    COALESCE(ma.MonthlyTotalPresent, 0) * 100.0 / NULLIF(COALESCE(ma.MonthlyTotalSessions, 1), 0) 
+                    AS DECIMAL(5,2)
+                ) AS AttendancePercentage 
+    
             FROM [wt-db].[RS].Members m
             CROSS JOIN WeeklyGroups w
-            CROSS JOIN [wt-db].[RS].Activities a  -- 🟢 Ensures all activities are considered for all members
+            CROSS JOIN [wt-db].[RS].Activities a  
             LEFT JOIN [wt-db].[RS].AttendanceReports ar 
                 ON ar.MemberId = m.Id 
                 AND ar.ActivityId = a.Id
                 AND ar.Date BETWEEN w.WeekStart AND w.WeekEnd
+            LEFT JOIN MonthlyAttendance ma 
+                ON ma.MemberId = m.Id 
+                AND ma.ActivityId = a.Id
+                AND ma.Year = w.Year
+                AND ma.Month = w.Month
             WHERE 
-                (@activityIds IS NULL OR a.Id IN (SELECT value FROM STRING_SPLIT(@activityIds, ',')))  -- 🟢 Filter for selected activities
-            ORDER BY MemberName, w.WeekStart, a.Name;";
+                (@activityIds IS NULL OR a.Id IN (SELECT value FROM STRING_SPLIT(@activityIds, ',')))  
+            ORDER BY m.FirstName, w.Year, w.Month, w.WeekStart, a.Name;";
 
 
             /*var parameters = new List<SqlParameter>
@@ -96,7 +131,10 @@ namespace AttendanceSystem.Persistence.Repositories
                                 WeekStart = Convert.ToDateTime(reader["WeekStart"]),
                                 WeekEnd = Convert.ToDateTime(reader["WeekEnd"]),
                                 ActivityName = reader["ActivityName"].ToString(),
-                                Attendance = Convert.ToInt32(reader["Attendance"])
+                                Attendance = Convert.ToInt32(reader["Attendance"]),
+                                TotalPresent = Convert.ToInt32(reader["MonthlyTotalPresent"]),
+                                TotalSessions = Convert.ToInt32(reader["MonthlyTotalSessions"]),
+                                AttendancePercentage = Convert.ToDecimal(reader["AttendancePercentage"])
                             });
                         }
                     }

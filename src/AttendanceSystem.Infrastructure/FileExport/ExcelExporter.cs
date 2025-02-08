@@ -23,6 +23,7 @@ namespace AttendanceSystem.Infrastructure.FileExport
                 int colIndex = 2; // Start after S/N and Member Name
 
                 var weeks = monthGroup.GroupBy(r => new { r.WeekStart, r.WeekEnd });
+                var activityNames = monthGroup.Select(r => r.ActivityName).Distinct().ToList();
 
                 // 🟢 **Add "S/N" and "Member Name" headers**
                 headerRow.CreateCell(0).SetCellValue("S/N");
@@ -30,26 +31,38 @@ namespace AttendanceSystem.Infrastructure.FileExport
                 subHeaderRow.CreateCell(0).SetCellValue("");
                 subHeaderRow.CreateCell(1).SetCellValue("");
 
+                /*titleRow.CreateCell(0).SetCellValue("S/N");
+                titleRow.CreateCell(1).SetCellValue("Member Name");
+                subHeaderRow.CreateCell(0).SetCellValue("");
+                subHeaderRow.CreateCell(1).SetCellValue("");*/
+
                 foreach (var week in weeks)
                 {
-                    var activityNames = week.Select(a => a.ActivityName).Distinct().ToList();
+                    //var activityNames = week.Select(a => a.ActivityName).Distinct().ToList();
                     int activityCount = activityNames.Count;
 
-                    // 🟢 **Create merged title header for each week (above column headers)**
+                    // 🟢 **Create merged headers for each week**
                     var titleCell = titleRow.CreateCell(colIndex);
                     titleCell.SetCellValue($"{week.Key.WeekStart:dd MMM} - {week.Key.WeekEnd:dd MMM yyyy}");
 
                     var mergedTitleRegion = new NPOI.SS.Util.CellRangeAddress(0, 0, colIndex, colIndex + activityCount - 1);
                     sheet.AddMergedRegion(mergedTitleRegion);
 
-                    // 🟢 **Add column headers under the merged week title**
                     foreach (var activity in activityNames)
                     {
-                        subHeaderRow.CreateCell(colIndex).SetCellValue(activity);
+                        subHeaderRow.CreateCell(colIndex).SetCellValue(activity); // Attendance column
                         colIndex++;
                     }
+                }
 
-                    colIndex++; // 🟢 **Leave space between week groups**
+                // Leave a blank column for separation
+                colIndex++;
+
+                // 🟢 **Second Table: Attendance Percentage Per Activity in a Separate Table**
+                foreach (var activity in activityNames)
+                {
+                    subHeaderRow.CreateCell(colIndex).SetCellValue($"Percentage {activity}");
+                    colIndex++;
                 }
 
                 // 🟢 **Fill in member rows**
@@ -63,21 +76,24 @@ namespace AttendanceSystem.Infrastructure.FileExport
                     colIndex = 2;
                     foreach (var week in weeks)
                     {
-                        var activities = week.Select(a => a.ActivityName).Distinct();
-                        foreach (var activity in activities)
+                        //var activities = week.Select(a => a.ActivityName).Distinct();
+                        foreach (var activity in activityNames)
                         {
                             var record = monthGroup.FirstOrDefault(r => r.MemberName == members[i] && r.WeekStart == week.Key.WeekStart && r.ActivityName == activity);
-                            row.CreateCell(colIndex++).SetCellValue(record?.Attendance ?? 0);
+                            row.CreateCell(colIndex).SetCellValue(record?.Attendance ?? 0);
+                            colIndex++;
                         }
-
-                        colIndex++; // 🟢 **Leave space between weeks**
                     }
-                }
 
-                // 🟢 **Auto-size columns for better readability**
-                for (int i = 0; i < colIndex; i++)
-                {
-                    sheet.AutoSizeColumn(i);
+                    colIndex++; // 🟢 **Leave space between weeks**
+
+                    // 🟢 **Fill Percentage Attendance Data for the Month**
+                    foreach (var activity in activityNames)
+                    {
+                        var record = monthGroup.FirstOrDefault(r => r.MemberName == members[i] && r.ActivityName == activity);
+                        row.CreateCell(colIndex).SetCellValue(Convert.ToDouble(record?.AttendancePercentage ?? 0)); // Monthly Percentage
+                        colIndex++;
+                    }
                 }
             }
 

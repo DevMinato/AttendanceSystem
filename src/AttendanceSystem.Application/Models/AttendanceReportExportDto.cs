@@ -7,5 +7,8 @@
         public string MemberName { get; set; }
         public string ActivityName { get; set; }
         public int Attendance { get; set; }
+        public int TotalPresent { get; set; }
+        public int TotalSessions { get; set; }
+        public decimal AttendancePercentage { get; set; }
     }
 }
