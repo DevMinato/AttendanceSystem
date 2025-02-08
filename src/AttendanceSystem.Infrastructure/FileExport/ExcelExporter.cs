@@ -1,7 +1,5 @@
 ﻿using AttendanceSystem.Application.Contracts.Infrastructure;
 using AttendanceSystem.Application.Models;
-using NPOI.HSSF.Record;
-using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System.Data;
 

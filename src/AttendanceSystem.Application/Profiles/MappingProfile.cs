@@ -44,7 +44,7 @@ namespace AttendanceSystem.Application.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<AttendanceReportViewModel, AttendanceReportResultVM>();
+            //CreateMap<AttendanceReportViewModel, AttendanceReportResultVM>();
             CreateMap<MonthlyAttendanceReportViewModel, AnalysisReportResultVM>();
 
             CreateMap<AttendanceReportViewModel, AttendanceReportExportDto>();

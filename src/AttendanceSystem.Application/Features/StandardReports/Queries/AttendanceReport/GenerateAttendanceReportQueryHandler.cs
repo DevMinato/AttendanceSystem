@@ -53,7 +53,20 @@ namespace AttendanceSystem.Application.Features.StandardReports.Queries.Attendan
 
                     var reports = await _reportRepository.FetchAttendanceData(request.StartDate.Value, request.EndDate.Value, activityIds);
 
-                    var result = _mapper.Map<List<AttendanceReportResultVM>>(reports)
+                    var groupedReports = reports
+                    .GroupBy(r => r.MemberName)
+                    .ToDictionary(
+                        g => g.Key,
+                        g => g.Select(r => new ActivityEntry
+                        {
+                            WeekStart = r.WeekStart,
+                            WeekEnd = r.WeekEnd,
+                            ActivityName = r.ActivityName,
+                            Attendance = r.Attendance
+                        }).ToList()
+                    );
+
+                    /*var result = _mapper.Map<List<AttendanceReportResultVM>>(reports)
                                          .GroupBy(r => new { r.MemberName, r.ActivityName, r.WeekStart })
                                          .Select(g => new AttendanceReportResultVM
                                          {
@@ -63,9 +76,9 @@ namespace AttendanceSystem.Application.Features.StandardReports.Queries.Attendan
                                              WeekEnd = g.First().WeekEnd, // Assuming WeekEnd is always the same within a week
                                              Attendance = g.Max(x => x.Attendance) // Take the highest attendance value if duplicates exist
                                          })
-                                         .ToList();
+                                         .ToList();*/
 
-                    response.Result = result;
+                    response.Result = groupedReports;
                     response.Success = true;
                     response.Message = Constants.SuccessResponse;
                 }
