@@ -57,14 +57,17 @@ namespace AttendanceSystem.Application.Features.StandardReports.Queries.Attendan
                     .GroupBy(r => r.MemberName)
                     .ToDictionary(
                         g => g.Key,
-                        g => g.Select(r => new ActivityEntry
-                        {
-                            WeekStart = r.WeekStart,
-                            WeekEnd = r.WeekEnd,
-                            ActivityName = r.ActivityName,
-                            Attendance = r.Attendance
-                        }).ToList()
+                        g => g.GroupBy(r => new { r.WeekStart, r.ActivityName }) // Group by WeekStart & ActivityName
+                            .Select(subGroup => new ActivityEntry
+                            {
+                                WeekStart = subGroup.Key.WeekStart,
+                                WeekEnd = subGroup.First().WeekEnd, // Assuming all have the same WeekEnd
+                                ActivityName = subGroup.Key.ActivityName,
+                                Attendance = subGroup.Max(x => x.Attendance) // Take the highest attendance to remove duplicates
+                            })
+                            .ToList()
                     );
+
 
                     /*var result = _mapper.Map<List<AttendanceReportResultVM>>(reports)
                                          .GroupBy(r => new { r.MemberName, r.ActivityName, r.WeekStart })
