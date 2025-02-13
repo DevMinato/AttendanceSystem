@@ -36,11 +36,6 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Queries.GetAll
                     filter = filter.And(c => c.MemberId == request.MemberId.Value);
                 }
 
-                if (request.FollowUpType.HasValue)
-                {
-                    filter = filter.And(c => c.FollowUpType >= request.FollowUpType.Value);
-                }
-
                 if (request.StartDate.HasValue)
                 {
                     filter = filter.And(c => c.CreatedAt >= request.StartDate.Value);

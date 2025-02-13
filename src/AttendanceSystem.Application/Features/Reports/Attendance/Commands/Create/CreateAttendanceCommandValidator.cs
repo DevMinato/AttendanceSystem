@@ -1,4 +1,5 @@
 ﻿using AttendanceSystem.Application.Contracts.Persistence;
+using AttendanceSystem.Application.Features.Reports.Followup.Commands.Create;
 using AttendanceSystem.Application.Features.StudyGroup.Commands.Add;
 using AttendanceSystem.Domain.Entities;
 using FluentValidation;
@@ -11,6 +12,38 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Crea
         private readonly IAsyncRepository<Activity> _activityRepository;
         private readonly IAsyncRepository<AttendanceReport> _attendanceReportRepository;
         public CreateAttendanceCommandValidator(IAsyncRepository<Member> memberRepository, IAsyncRepository<Activity> activityRepository, IAsyncRepository<AttendanceReport> attendanceReportRepository)
+        {
+            _memberRepository = memberRepository;
+            _activityRepository = activityRepository;
+            _attendanceReportRepository = attendanceReportRepository;
+
+            RuleFor(x => x.Attendances)
+               .NotEmpty()
+               .WithMessage("Attendance details cannot be empty.")
+               .Must(HaveConsistentMemberAndActivityIds)
+               .WithMessage("All Follow-up details must have the same MemberId and ActivityId.");
+
+            RuleForEach(x => x.Attendances).SetValidator(new CreateAttendanceDetailCommandValidator(_memberRepository, _activityRepository, _attendanceReportRepository));
+        }
+
+        private bool HaveConsistentMemberAndActivityIds(List<AttendanceCommand> attendanceCommand)
+        {
+            if (attendanceCommand == null || !attendanceCommand.Any()) return true;
+
+            var firstMemberId = attendanceCommand.First().MemberId;
+            var firstActivityId = attendanceCommand.First().ActivityId;
+
+            return attendanceCommand.All(x => x.MemberId == firstMemberId && x.ActivityId == firstActivityId);
+        }
+    }
+
+    public class CreateAttendanceDetailCommandValidator : AbstractValidator<AttendanceCommand>
+    {
+        private readonly IAsyncRepository<Member> _memberRepository;
+        private readonly IAsyncRepository<Activity> _activityRepository;
+        private readonly IAsyncRepository<AttendanceReport> _attendanceReportRepository;
+
+        public CreateAttendanceDetailCommandValidator(IAsyncRepository<Member> memberRepository, IAsyncRepository<Activity> activityRepository, IAsyncRepository<AttendanceReport> attendanceReportRepository)
         {
             _memberRepository = memberRepository;
             _activityRepository = activityRepository;
@@ -35,6 +68,7 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Crea
                 .WithMessage("Member has marked attendance.");
         }
 
+
         private async Task<bool> BeValidMemberId(Guid id)
         {
             var count = await _memberRepository.CountAsync(x => x.Id == id);
@@ -51,14 +85,14 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Crea
             return true;
         }
 
-        private async Task<bool> HasMarkedAttendance(CreateAttendanceCommand command, CancellationToken cancellationToken)
+        private async Task<bool> HasMarkedAttendance(AttendanceCommand command, CancellationToken cancellationToken)
         {
             try
             {
                 var attendance = await _attendanceReportRepository.GetSingleAsync(x => x.MemberId == command.MemberId && x.CreatedAt.Date == DateTime.UtcNow.Date);
                 if (attendance == null)
                 {
-                   return true;
+                    return true;
                 }
 
                 return false;

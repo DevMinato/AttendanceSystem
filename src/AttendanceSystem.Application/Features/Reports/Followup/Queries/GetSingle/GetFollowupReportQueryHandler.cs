@@ -28,20 +28,13 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Queries.GetSing
             var response = new GetFollowupReportQueryResponse();
             try
             {
-                var includeExpressions = new Expression<Func<FollowUpReport, object>>[]
-                {
-                    report => report.FollowUpDetails,
-                    report => report.Member,
-                    report => report.Activity,
-                };
-
-                var report = await _followupReportRepository.GetSingleAsync(x => x.Id == request.ReportId, false, includeExpressions);
+                var report = await _followupDetailRepository.GetFilteredAsync(x => x.FollowUpReportId == request.ReportId, false);
                 if (report == null)
                 {
                     throw new NotFoundException(nameof(FollowUpReport), Constants.ErrorCode_ReportNotFound + $" Report with request id {request.ReportId} not found");
                 }
 
-                response.Result = _mapper.Map<FollowupReportDetailResultVM>(report);
+                response.Result = _mapper.Map<List<FollowupReportDetailResultVM>>(report);
                 response.Success = true;
                 response.Message = Constants.SuccessResponse;
             }

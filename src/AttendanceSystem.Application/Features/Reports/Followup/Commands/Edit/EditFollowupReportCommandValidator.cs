@@ -6,12 +6,12 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Commands.Edit
 {
     public class EditFollowupReportCommandValidator : AbstractValidator<EditFollowupReportCommand>
     {
-        private readonly IAsyncRepository<FollowUpReport> _followupReportRepository;
+        private readonly IAsyncRepository<FollowUpDetail> _followupDetailRepository;
         private readonly IAsyncRepository<Member> _memberRepository;
         private readonly IAsyncRepository<Activity> _activityRepository;
-        public EditFollowupReportCommandValidator(IAsyncRepository<FollowUpReport> followupReportRepository, IAsyncRepository<Member> memberRepository, IAsyncRepository<Activity> activityRepository)
+        public EditFollowupReportCommandValidator(IAsyncRepository<FollowUpDetail> followupDetailRepository, IAsyncRepository<Member> memberRepository, IAsyncRepository<Activity> activityRepository)
         {
-            _followupReportRepository = followupReportRepository;
+            _followupDetailRepository = followupDetailRepository;
             _memberRepository = memberRepository;
             _activityRepository = activityRepository;
 
@@ -40,6 +40,11 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Commands.Edit
                 .IsInEnum()
                 .WithMessage("Invalid follow up type");
 
+            RuleFor(x => x.FullName).Cascade(CascadeMode.Stop)
+                .NotEmpty()
+                .NotNull()
+                .WithMessage("Full name is required");
+
             RuleFor(x => x.Date).Cascade(CascadeMode.Stop)
                 .NotEmpty()
                 .NotNull()
@@ -48,7 +53,7 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Commands.Edit
 
         private async Task<bool> BeValidReportId(Guid id)
         {
-            var count = await _followupReportRepository.CountAsync(x => x.Id == id);
+            var count = await _followupDetailRepository.CountAsync(x => x.Id == id);
             if (count == 0)
                 return false;
             return true;

@@ -5,6 +5,11 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Crea
 {
     public class CreateAttendanceCommand : IRequest<BaseResponse>
     {
+        public List<AttendanceCommand> Attendances { get; set; } = new List<AttendanceCommand>();
+    }
+
+    public class AttendanceCommand
+    {
         public Guid? MemberId { get; set; }
         public Guid? ActivityId { get; set; }
         public bool IsPresent { get; set; } = false;

@@ -87,7 +87,7 @@ namespace AttendanceSystem.Persistence
             modelBuilder.Entity<Pastor>().Property(f => f.Gender).HasConversion<string>().HasMaxLength(10);
             modelBuilder.Entity<Member>().Property(f => f.Gender).HasConversion<string>().HasMaxLength(10);
             modelBuilder.Entity<Member>().Property(f => f.MemberType).HasConversion<string>().HasMaxLength(20);
-            modelBuilder.Entity<FollowUpReport>().Property(f => f.FollowUpType).HasConversion<string>().HasMaxLength(20);
+            modelBuilder.Entity<FollowUpDetail>().Property(f => f.FollowUpType).HasConversion<string>().HasMaxLength(20);
         }
 
         //public DbSet<ApplicationUser> ApplicationUsers { get; set; }

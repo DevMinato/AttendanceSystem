@@ -10,9 +10,8 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Commands.Edit
         public Guid? MemberId { get; set; }
         public Guid? ActivityId { get; set; }
         public FollowUpType FollowUpType { get; set; }
-        public int TotalFollowUps { get; set; }
-        public string Notes { get; set; }
+        public string FullName { get; set; }
+        public string Notes { get; set; } = string.Empty;
         public DateTime? Date { get; set; }
-        public List<EditFollowUpDetailCommand> FollowUpDetails { get; set; } = new();
     }
 }

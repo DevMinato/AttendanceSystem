@@ -103,7 +103,7 @@ namespace AttendanceSystem.Application.Profiles
 
             /* Start Attendance Report Mapping */
 
-            CreateMap<CreateAttendanceCommand, AttendanceReport>()
+            CreateMap<AttendanceCommand, AttendanceReport>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.Member, opt => opt.Ignore())
                 .ForMember(dest => dest.Activity, opt => opt.Ignore())
@@ -143,6 +143,9 @@ namespace AttendanceSystem.Application.Profiles
             CreateMap<CreateFollowupReportCommand, FollowUpReport>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.Member, opt => opt.Ignore())
+                .ForMember(dest => dest.MemberId, opt => opt.Ignore())
+                .ForMember(dest => dest.ActivityId, opt => opt.Ignore())
+                .ForMember(dest => dest.TotalFollowUps, opt => opt.Ignore())
                 .ForMember(dest => dest.Activity, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
@@ -164,10 +167,10 @@ namespace AttendanceSystem.Application.Profiles
                 .ForMember(dest => dest.ModifiedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
 
-            CreateMap<EditFollowupReportCommand, FollowUpReport>()
+           CreateMap<EditFollowupReportCommand, FollowUpDetail>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(b => b.ReportId))
-                .ForMember(dest => dest.Member, opt => opt.Ignore())
-                .ForMember(dest => dest.Activity, opt => opt.Ignore())
+                .ForMember(dest => dest.FollowUpReportId, opt => opt.Ignore())
+                .ForMember(dest => dest.FollowUpReport, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
@@ -176,7 +179,7 @@ namespace AttendanceSystem.Application.Profiles
                 .ForMember(dest => dest.IsActive, opt => opt.Ignore())
                 .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
 
-            CreateMap<EditFollowUpDetailCommand, FollowUpDetail>()
+            /*CreateMap<EditFollowUpDetailCommand, FollowUpDetail>()
                 .ForMember(dest => dest.FollowUpReportId, opt => opt.Ignore())
                 .ForMember(dest => dest.FollowUpReport, opt => opt.Ignore())
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
@@ -186,18 +189,22 @@ namespace AttendanceSystem.Application.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
                 .ForMember(dest => dest.ModifiedBy, opt => opt.Ignore())
-                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());*/
 
-            CreateMap<FollowUpReport, FollowupReportDetailResultVM>()
+            /*CreateMap<FollowUpReport, FollowupReportDetailResultVM>()
                 .ForMember(dest => dest.MemberFullName, opt => opt.MapFrom(i => string.Join(' ', i.Member.FirstName, i.Member.LastName)))
-                .ForMember(dest => dest.ActivityName, opt => opt.MapFrom(i => i.Activity.Name));
+                .ForMember(dest => dest.ActivityName, opt => opt.MapFrom(i => i.Activity.Name));*/
+
+            CreateMap<FollowUpDetail, FollowupReportDetailResultVM>();
+
             CreateMap<FollowUpReport, FollowupReportListResultVM>()
                 .ForMember(dest => dest.MemberFullName, opt => opt.MapFrom(i => string.Join(' ', i.Member.FirstName, i.Member.LastName)))
                 .ForMember(dest => dest.ActivityName, opt => opt.MapFrom(i => i.Activity.Name));
 
             CreateMap<PagedResult<FollowUpReport>, PagedResult<FollowupReportListResultVM>>();
 
-            CreateMap<FollowUpDetail, FollowUpDetailResultVM>();
+            CreateMap<FollowUpDetail, FollowUpDetailResultVM>()
+                .ForMember(dest => dest.MemberFullName, opt => opt.Ignore());
 
             CreateMap<PagedResult<FollowUpDetail>, PagedResult<FollowUpDetailResultVM>>();
 

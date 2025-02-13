@@ -1,6 +1,5 @@
 ﻿using AttendanceSystem.Application.Contracts.Persistence;
 using AttendanceSystem.Application.Exceptions;
-using AttendanceSystem.Application.Features.Reports.Outreach.Commands.Create;
 using AttendanceSystem.Application.Responses;
 using AttendanceSystem.Domain.Entities;
 using AutoMapper;

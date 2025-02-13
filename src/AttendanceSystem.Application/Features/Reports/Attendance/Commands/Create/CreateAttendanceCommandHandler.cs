@@ -35,9 +35,15 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Crea
                 if (validationResult.Errors.Count > 0)
                     throw new ValidationException(validationResult);
 
-                var report = _mapper.Map<AttendanceReport>(request);
+                List<AttendanceReport> reports = new List<AttendanceReport>();
 
-                await _attendanceReportRepository.AddAsync(report);
+                foreach (var attendance in request.Attendances)
+                {
+                    var report = _mapper.Map<AttendanceReport>(attendance);
+                    reports.Add(report);
+                }
+
+                await _attendanceReportRepository.AddRangeAsync(reports);
 
                 response.Success = true;
                 response.Message = Constants.SuccessResponse;

@@ -8,10 +8,7 @@ namespace AttendanceSystem.Domain.Entities
     {
         public Guid MemberId { get; set; } // Foreign Key to Member.Id
         public Guid ActivityId { get; set; } // Foreign Key to Activity.Id
-        public FollowUpType FollowUpType { get; set; } // Enum: Visitation, Teaching
-        public int TotalFollowUps { get; set; } // Total number of follow-ups
-        public string Notes { get; set; } // Additional notes or details
-        public DateTime Date { get; set; }
+        public int TotalFollowUps { get; set; }
 
         // Navigation Properties
         public Member Member { get; set; }
