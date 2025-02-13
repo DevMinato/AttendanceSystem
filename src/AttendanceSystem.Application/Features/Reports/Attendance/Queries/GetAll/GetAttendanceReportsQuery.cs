@@ -6,6 +6,7 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Queries.GetAl
     public class GetAttendanceReportsQuery : PagingModel, IRequest<GetAttendanceReportsQueryResponse>
     {
         public Guid? MemberId { get; set; }
+        public Guid? DiscplerId { get; set; }
         public Guid? ActivityId { get; set; }
         public string? Search { get; set; }
         public DateTime? StartDate { get; set; }

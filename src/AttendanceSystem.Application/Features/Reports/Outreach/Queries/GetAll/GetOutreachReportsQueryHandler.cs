@@ -36,6 +36,11 @@ namespace AttendanceSystem.Application.Features.Reports.Outreach.Queries.GetAll
                     filter = filter.And(c => c.MemberId == request.MemberId.Value);
                 }
 
+                if (request.DisciplerId.HasValue)
+                {
+                    filter = filter.And(c => c.Member.DisciplerId == request.DisciplerId.Value);
+                }
+
                 if (request.StartDate.HasValue)
                 {
                     filter = filter.And(c => c.CreatedAt >= request.StartDate.Value);
