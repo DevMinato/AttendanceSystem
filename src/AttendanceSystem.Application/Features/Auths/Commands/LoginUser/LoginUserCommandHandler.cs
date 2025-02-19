@@ -85,6 +85,17 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
                         LastLoginDate = member.LastLoginDate,
                     };
                     var token = GenerateToken(userResponse, DateTime.Now, _config);
+                    token.UserData = new UserData
+                    {
+                        UserId = userResponse.UserId,
+                        GroupId = userResponse.GroupId,
+                        FullName = userResponse.GroupName,
+                        PhoneNumber = userResponse.PhoneNumber,
+                        EmailAddress = userResponse.EmailAddress,
+                        UserType = userResponse.UserType,
+                        GroupName = userResponse.GroupName,
+                        LastLoginDate = userResponse.LastLoginDate,
+                    };
                     response.Result = token;
 
                     member.LoginAttempt = 0;
@@ -128,6 +139,17 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.LoginUser
                         LastLoginDate = pastor.LastLoginDate,
                     };
                     var token = GenerateToken(userResponse, DateTime.Now, _config);
+                    token.UserData = new UserData
+                    {
+                        UserId = userResponse.UserId,
+                        GroupId = userResponse.GroupId,
+                        FullName = userResponse.GroupName,
+                        PhoneNumber = userResponse.PhoneNumber,
+                        EmailAddress = userResponse.EmailAddress,
+                        UserType = userResponse.UserType,
+                        GroupName = userResponse.GroupName,
+                        LastLoginDate = userResponse.LastLoginDate,
+                    };
                     response.Result = token;
 
                     pastor.LoginAttempt = 0;
