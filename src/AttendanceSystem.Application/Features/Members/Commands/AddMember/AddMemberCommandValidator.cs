@@ -59,6 +59,10 @@ namespace AttendanceSystem.Application.Features.Members.Commands.AddMember
                 .IsInEnum()
                 .WithMessage("Invalid gender selected");
 
+            RuleFor(x => x.MemberType).Cascade(CascadeMode.Stop)
+                .IsInEnum()
+                .WithMessage("Invalid member type selected");
+
             RuleFor(x => x)
                 .MustAsync(IsEmailAddressUnique)
                 .WithMessage("Email address exists")
