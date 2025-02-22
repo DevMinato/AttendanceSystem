@@ -1,8 +1,11 @@
 ﻿using AttendanceSystem.Application.Contracts.Persistence;
 using AttendanceSystem.Application.Exceptions;
+using AttendanceSystem.Application.Features.Members.Queries.GetAllMembers;
+using AttendanceSystem.Application.Features.Members.Queries.GetMember;
 using AttendanceSystem.Application.Utilities;
 using AttendanceSystem.Domain.Entities;
 using AttendanceSystem.Domain.Enums;
+using AttendanceSystem.Domain.Extensions;
 using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -43,6 +46,22 @@ namespace AttendanceSystem.Application.Features.Members.Commands.AddMember
 
                 await _memberRepository.AddAsync(member);
 
+                var result = new MembersListResultVM
+                {
+                    Id = member.Id,
+                    DisciplerFullName = _userService.UserDetails().FullName,
+                    FellowshipId = member.FellowshipId,
+                    FirstName = member.FirstName,
+                    LastName = member.LastName,
+                    PhoneNumber = member.PhoneNumber,
+                    Email = member.Email,
+                    DisciplerId = member.DisciplerId,
+                    FellowshipName = member.Fellowship.Name,
+                    Gender = member.Gender.DisplayName(),
+                    Status = member.Status.DisplayName(),
+                };
+
+                response.Result = result;
                 response.Success = true;
                 response.Message = Constants.SuccessResponse;
             }
