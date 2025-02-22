@@ -87,7 +87,7 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Crea
         {
             try
             {
-                var attendance = await _attendanceReportRepository.GetSingleAsync(x => x.MemberId == command.MemberId && x.CreatedAt.Date == DateTime.UtcNow.Date);
+                var attendance = await _attendanceReportRepository.GetSingleAsync(x => x.MemberId == command.MemberId && x.ActivityId == command.ActivityId && x.CreatedAt.Date == command.Date.Date);
                 if (attendance == null)
                 {
                     return true;
