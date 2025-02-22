@@ -1,6 +1,4 @@
 ﻿using AttendanceSystem.Application.Contracts.Persistence;
-using AttendanceSystem.Application.Features.Reports.Followup.Commands.Create;
-using AttendanceSystem.Application.Features.StudyGroup.Commands.Add;
 using AttendanceSystem.Domain.Entities;
 using FluentValidation;
 
@@ -21,7 +19,7 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Crea
                .NotEmpty()
                .WithMessage("Attendance details cannot be empty.")
                .Must(HaveConsistentMemberAndActivityIds)
-               .WithMessage("All Follow-up details must have the same MemberId and ActivityId.");
+               .WithMessage("All Attendance details must have the sanme ActivityId.");
 
             RuleForEach(x => x.Attendances).SetValidator(new CreateAttendanceDetailCommandValidator(_memberRepository, _activityRepository, _attendanceReportRepository));
         }
@@ -30,10 +28,10 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Commands.Crea
         {
             if (attendanceCommand == null || !attendanceCommand.Any()) return true;
 
-            var firstMemberId = attendanceCommand.First().MemberId;
+            //var firstMemberId = attendanceCommand.First().MemberId;
             var firstActivityId = attendanceCommand.First().ActivityId;
 
-            return attendanceCommand.All(x => x.MemberId == firstMemberId && x.ActivityId == firstActivityId);
+            return attendanceCommand.All(x => /*x.MemberId == firstMemberId &&*/ x.ActivityId == firstActivityId);
         }
     }
 
