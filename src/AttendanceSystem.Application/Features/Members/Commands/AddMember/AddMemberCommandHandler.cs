@@ -56,7 +56,7 @@ namespace AttendanceSystem.Application.Features.Members.Commands.AddMember
                     PhoneNumber = member.PhoneNumber,
                     Email = member.Email,
                     DisciplerId = member.DisciplerId,
-                    FellowshipName = member.Fellowship.Name,
+                    FellowshipName = _userService.UserDetails().GroupName,
                     Gender = member.Gender.DisplayName(),
                     Status = member.Status.DisplayName(),
                 };
