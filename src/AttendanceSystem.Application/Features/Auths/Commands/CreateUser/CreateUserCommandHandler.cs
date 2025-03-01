@@ -53,6 +53,7 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.CreateUser
                         FellowshipId = request.FellowshipId.Value,
                         IsActive = false,
                         Status = ApprovalStatus.Pending,
+                        MemberType = MemberType.WorkersInTraining,
                     };
                     member.PasswordHash = _memberPasswordHasher.HashPassword(member, request.Password);
 
@@ -69,7 +70,7 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.CreateUser
                         PhoneNumber = request.PhoneNumber,
                         FellowshipId = request.FellowshipId.Value,
                         IsActive = false,
-                        Status = ApprovalStatus.Pending,
+                        Status = ApprovalStatus.Pending                        
                     };
                     pastor.PasswordHash = _pastorPasswordHasher.HashPassword(pastor, request.Password);
 

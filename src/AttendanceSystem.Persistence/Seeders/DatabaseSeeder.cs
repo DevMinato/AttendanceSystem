@@ -110,7 +110,7 @@ public static class DatabaseSeeder
             {
                 Id = Guid.Parse("d15356cf-a3a4-4fa6-bc78-3e37f76f53f0"),
                 FirstName = "Seun",
-                LastName = "Scott",
+                LastName = "Aina-Scott",
                 Email = "seunainascott2@gmail.com",
                 PhoneNumber = "08107774062",
                 PasswordHash = hashedPassword2,
