@@ -195,7 +195,8 @@ namespace AttendanceSystem.Application.Profiles
                 .ForMember(dest => dest.MemberFullName, opt => opt.MapFrom(i => string.Join(' ', i.Member.FirstName, i.Member.LastName)))
                 .ForMember(dest => dest.ActivityName, opt => opt.MapFrom(i => i.Activity.Name));*/
 
-            CreateMap<FollowUpDetail, FollowupReportDetailResultVM>();
+            CreateMap<FollowUpDetail, FollowupReportDetailResultVM>()
+                .ForMember(dest => dest.DiscipleFullName, opt => opt.Ignore());
 
             CreateMap<FollowUpReport, FollowupReportListResultVM>()
                 .ForMember(dest => dest.MemberFullName, opt => opt.MapFrom(i => string.Join(' ', i.Member.FirstName, i.Member.LastName)))
@@ -204,7 +205,8 @@ namespace AttendanceSystem.Application.Profiles
             CreateMap<PagedResult<FollowUpReport>, PagedResult<FollowupReportListResultVM>>();
 
             CreateMap<FollowUpDetail, FollowUpDetailResultVM>()
-                .ForMember(dest => dest.MemberFullName, opt => opt.Ignore());
+                .ForMember(dest => dest.MemberFullName, opt => opt.Ignore())
+                .ForMember(dest => dest.DiscipleFullName, opt => opt.Ignore());
 
             CreateMap<PagedResult<FollowUpDetail>, PagedResult<FollowUpDetailResultVM>>();
 

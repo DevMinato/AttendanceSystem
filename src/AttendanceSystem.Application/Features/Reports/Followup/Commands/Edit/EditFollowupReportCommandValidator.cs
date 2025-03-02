@@ -29,6 +29,13 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Commands.Edit
                 .Must(x => BeValidMemberId(x.Value).Result)
                 .WithMessage("Member identifier is not valid.");
 
+            RuleFor(x => x.DiscipleId).Cascade(CascadeMode.Stop)
+                .NotEmpty()
+                .NotNull()
+                .WithMessage("Disciple identifier is required")
+                .Must(x => BeValidMemberId(x.Value).Result)
+                .WithMessage("Disciple identifier is not valid.");
+
             RuleFor(x => x.ActivityId).Cascade(CascadeMode.Stop)
                 .NotEmpty()
                 .NotNull()
@@ -39,11 +46,6 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Commands.Edit
             RuleFor(x => x.FollowUpType).Cascade(CascadeMode.Stop)
                 .IsInEnum()
                 .WithMessage("Invalid follow up type");
-
-            RuleFor(x => x.FullName).Cascade(CascadeMode.Stop)
-                .NotEmpty()
-                .NotNull()
-                .WithMessage("Full name is required");
 
             RuleFor(x => x.Date).Cascade(CascadeMode.Stop)
                 .NotEmpty()

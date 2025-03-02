@@ -4,8 +4,10 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Queries.GetSing
 {
     public class FollowupReportDetailResultVM
     {
+        public Guid Id { get; set; }
         public string FollowUpType { get; set; }
-        public string FullName { get; set; }
+        public Guid DiscipleId { get; set; }
+        public string DiscipleFullName { get; set; }
         public string Notes { get; set; }
         public DateTime Date { get; set; }
     }

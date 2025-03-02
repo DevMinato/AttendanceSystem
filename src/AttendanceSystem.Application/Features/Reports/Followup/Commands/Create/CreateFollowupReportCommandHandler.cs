@@ -57,7 +57,7 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Commands.Create
                     {
                         var detailObj = new FollowUpDetail
                         {
-                            FullName = detail.FullName,
+                            DiscipleId = detail.DiscipleId.Value,
                             MemberId = detail.MemberId.Value,
                             FollowUpType = detail.FollowUpType,
                             FollowUpReportId = followupObj.Id,

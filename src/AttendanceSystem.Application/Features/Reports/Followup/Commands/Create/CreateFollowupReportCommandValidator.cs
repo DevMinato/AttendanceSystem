@@ -51,6 +51,13 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Commands.Create
                 .MustAsync(async (id, _) => await BeValidMemberId(id.Value))
                 .WithMessage("Member identifier is not valid.");
 
+            RuleFor(x => x.DiscipleId)
+               .NotEmpty()
+               .NotNull()
+               .WithMessage("Disciple identifier is required.")
+               .MustAsync(async (id, _) => await BeValidMemberId(id.Value))
+               .WithMessage("Disciple identifier is not valid.");
+
             RuleFor(x => x.ActivityId)
                 .NotEmpty()
                 .NotNull()

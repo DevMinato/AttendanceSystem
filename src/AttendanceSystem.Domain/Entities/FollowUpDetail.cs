@@ -9,7 +9,7 @@ namespace AttendanceSystem.Domain.Entities
         public Guid FollowUpReportId { get; set; } 
         public Guid MemberId { get; set; }
         public FollowUpType FollowUpType { get; set; }
-        public string FullName { get; set; }
+        public Guid DiscipleId { get; set; }
         public string Notes { get; set; } = string.Empty;
         public DateTime? Date { get; set; } = DateTime.UtcNow;
 
