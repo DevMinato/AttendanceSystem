@@ -40,6 +40,12 @@ namespace AttendanceSystem.Application.Features.Fellowships.Queries.GetFellowshi
                     if(pastor != null) result.PastorFullName = $"{pastor.FirstName} {pastor.LastName}";
                 }
 
+                if (result.ParentId != null)
+                {
+                    var fellowshipObj = await _fellowshipRepository.GetSingleAsync(x => x.Id == result.ParentId, false);
+                    if (fellowshipObj != null) result.ParentFellowship = $"{fellowshipObj.Name}";
+                }
+
                 response.Result = result;
                 response.Success = true;
                 response.Message = Constants.SuccessResponse;

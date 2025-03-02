@@ -58,6 +58,12 @@ namespace AttendanceSystem.Application.Features.Fellowships.Queries.GetAllFellow
                     {
                         var pastor = pastors?.FirstOrDefault(x => x.Id == item.PastorId);
                         if(pastor != null) item.PastorFullName = $"{pastor.FirstName} {pastor.LastName}";
+
+                        if(item.ParentId != null)
+                        {
+                            var fellowship = await _fellowshipRepository.GetSingleAsync(x => x.Id == item.ParentId);
+                            if (fellowship != null) item.ParentFellowship = $"{fellowship.Name}";
+                        }
                     }
                 }
 

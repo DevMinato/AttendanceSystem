@@ -8,6 +8,7 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.EditFellows
         public Guid? FellowshipId { get; set; }
         public string? Name { get; set; }
         public Guid? PastorId { get; set; }
+        public Guid? ParentId { get; set; }
         public bool IsActive { get; set; }
     }
 }

@@ -6,6 +6,7 @@ namespace AttendanceSystem.Application.Features.Fellowships.Commands.AddFellowsh
     public class AddFellowshipCommand : IRequest<AddFellowshipCommandResponse>
     {
         public string? Name { get; set; }
+        public Guid? ParentId { get; set; }
         public Guid? PastorId { get; set; }
     }
 }

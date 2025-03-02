@@ -6,6 +6,7 @@ namespace AttendanceSystem.Domain.Entities
     public class Fellowship : BaseEntity
     {
         public string Name { get; set; }
+        public Guid? ParentId { get; set; }
         public Guid PastorId { get; set; }
     }
 }

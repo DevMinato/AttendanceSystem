@@ -344,10 +344,12 @@ namespace AttendanceSystem.Application.Profiles
                 .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
 
             CreateMap<Fellowship, FellowshipDetailResultVM>()
-                .ForMember(dest => dest.PastorFullName, opt => opt.Ignore());
+                .ForMember(dest => dest.PastorFullName, opt => opt.Ignore())
+                .ForMember(dest => dest.ParentFellowship, opt => opt.Ignore());
 
             CreateMap<Fellowship, FellowshipsListResultVM>()
-                .ForMember(dest => dest.PastorFullName, opt => opt.Ignore());
+                .ForMember(dest => dest.PastorFullName, opt => opt.Ignore())
+                .ForMember(dest => dest.ParentFellowship, opt => opt.Ignore());
 
             CreateMap<PagedResult<Fellowship>, PagedResult<FellowshipsListResultVM>>();
 
