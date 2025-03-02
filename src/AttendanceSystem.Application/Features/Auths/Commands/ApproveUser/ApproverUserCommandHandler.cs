@@ -33,7 +33,7 @@ namespace AttendanceSystem.Application.Features.Auths.Commands.ApproveUser
                 if (validationResult.Errors.Count > 0)
                     throw new ValidationException(validationResult);
 
-                if (request.MemberType == MemberType.WorkersInTraining)
+                if (request.MemberType == MemberType.WorkersInTraining || request.MemberType == MemberType.Disciple)
                 {
                     var member = await _memberRepository.GetSingleAsync(x => x.Id == request.UserId);
                     if (member == null) throw new NotFoundException(nameof(member), $"Member with Id {request.UserId} not found, ({Constants.ErrorCode_MemberRecordNotFound})");
