@@ -32,9 +32,9 @@ namespace AttendanceSystem.Application.Features.Reports.Attendance.Queries.GetAl
                     filter = filter.And(c => c.MemberId == request.MemberId.Value);
                 }
 
-                if (request.DiscplerId.HasValue)
+                if (request.DisciplerId.HasValue)
                 {
-                    filter = filter.And(c => c.Member.DisciplerId == request.DiscplerId.Value);
+                    filter = filter.And(c => c.Member.DisciplerId == request.DisciplerId.Value);
                 }
 
                 if (request.ActivityId.HasValue)

@@ -1,7 +1,6 @@
 ﻿using AttendanceSystem.Application.Contracts.Persistence;
 using AttendanceSystem.Application.Exceptions;
 using AttendanceSystem.Application.Features.Members.Queries.GetAllMembers;
-using AttendanceSystem.Application.Features.Members.Queries.GetMember;
 using AttendanceSystem.Application.Utilities;
 using AttendanceSystem.Domain.Entities;
 using AttendanceSystem.Domain.Enums;
