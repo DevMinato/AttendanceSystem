@@ -86,7 +86,7 @@ namespace Test
 
             // Then
             Assert.True(result.Success);
-            Assert.
+            //Assert.
             Assert.Equal("Completed successfully", result.Message);
             Assert.Equal(_testMemberId, result.Result.Id);
             Assert.Equal("Test Discipler", result.Result.DisciplerFullName);
