@@ -48,6 +48,8 @@ namespace AttendanceSystem.Application.Features.Reports.Followup.Queries.GetSing
                     }
                 }
 
+                response.Result = result;
+
                 response.Success = true;
                 response.Message = Constants.SuccessResponse;
             }
