@@ -8,7 +8,7 @@ namespace AttendanceSystem.Domain.Entities
         public Guid OutreachReportId { get; set; } // Foreign Key to OutreachReport.Id
         public string FullName { get; set; }
         public string Address { get; set; }
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; } = string.Empty;
 
         // Navigation Properties
         public OutreachReport OutreachReport { get; set; }
