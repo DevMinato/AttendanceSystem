@@ -78,7 +78,7 @@ namespace AttendanceSystem.Persistence.Repositories
             LEFT JOIN [wt-db].[RS].AttendanceReports ar 
                 ON ar.MemberId = m.Id 
                 AND ar.ActivityId = a.Id
-                AND ar.Date BETWEEN w.WeekStart AND w.WeekEnd
+                AND CAST(ar.Date AS DATE) BETWEEN w.WeekStart AND w.WeekEnd
             LEFT JOIN MonthlyAttendance ma 
                 ON ma.MemberId = m.Id 
                 AND ma.ActivityId = a.Id
