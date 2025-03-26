@@ -8,28 +8,27 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace AttendanceSystem.Application.Features.Analytics.Queries.AttendanceStatistics
+namespace AttendanceSystem.Application.Features.Analytics.Queries.PerformanceAnalysis
 {
-    public class GetAttendanceStatisticsQueryHandler : IRequestHandler<GetAttendanceStatisticsQuery, GetAttendanceStatisticsQueryResponse>
+    public class GetPerformanceAnalysisQueryHandler : IRequestHandler<GetPerformanceAnalysisQuery, GetPerformanceAnalysisQueryResponse>
     {
         private readonly IMapper _mapper;
-        private readonly ILogger<GetAttendanceStatisticsQueryHandler> _logger;
+        private readonly ILogger<GetPerformanceAnalysisQueryHandler> _logger;
         private readonly IUserService _userService;
-        private readonly IAnalyticsRepository _attendanceStatisticsRepository;
+        private readonly IAnalyticsRepository _analyticsRepository;
 
-        public GetAttendanceStatisticsQueryHandler(IMapper mapper, ILogger<GetAttendanceStatisticsQueryHandler> logger, 
-            IUserService userService, IAnalyticsRepository attendanceStatisticsRepository)
+        public GetPerformanceAnalysisQueryHandler(IMapper mapper, ILogger<GetPerformanceAnalysisQueryHandler> logger,
+            IUserService userService, IAnalyticsRepository analyticsRepository)
         {
             _mapper = mapper;
             _logger = logger;
-            _logger = logger;
             _userService = userService;
-            _attendanceStatisticsRepository = attendanceStatisticsRepository;
+            _analyticsRepository = analyticsRepository;
         }
 
-        public async Task<GetAttendanceStatisticsQueryResponse> Handle(GetAttendanceStatisticsQuery request, CancellationToken cancellationToken)
+        public async Task<GetPerformanceAnalysisQueryResponse> Handle(GetPerformanceAnalysisQuery request, CancellationToken cancellationToken)
         {
-            var response = new GetAttendanceStatisticsQueryResponse();
+            var response = new GetPerformanceAnalysisQueryResponse();
             List<Guid> activityIds = new List<Guid>();
 
             try
@@ -54,7 +53,7 @@ namespace AttendanceSystem.Application.Features.Analytics.Queries.AttendanceStat
                         .ToList();
                 }
 
-                var result = await _attendanceStatisticsRepository.GetAttendanceStatisticsAsync(
+                var result = await _analyticsRepository.GetPerformanceAnalysisAsync(
                     request.StartDate.Value, request.EndDate.Value, request.FellowshipId, activityIds, request.MemberId);
 
                 response.Result = result;

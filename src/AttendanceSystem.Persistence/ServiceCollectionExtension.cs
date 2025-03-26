@@ -25,7 +25,7 @@ namespace AttendanceSystem.Persistence
             services.AddScoped<IPasswordHasher<Pastor>, PasswordHasher<Pastor>>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IReportRepository, ReportRepository>();
-            services.AddTransient<IAttendanceStatisticsRepository, AttendanceStatisticsRepository>();
+            services.AddTransient<IAnalyticsRepository, AnalyticsRepository>();
             return services;
         }
 
